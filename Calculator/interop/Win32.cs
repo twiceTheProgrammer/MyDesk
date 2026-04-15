@@ -3,6 +3,12 @@ using System.Runtime.InteropServices;
 
 public static class Win32
 {
+	public const int WS_CHILD = 0X40000000;
+	public const int WS_VISIBLE = 0x10000000;
+	public const int WS_BORDER = 0x00800000;
+	public const int WM_COMMAND = 0X0111;
+	public const int WM_CLOSE = 0x0010;
+
 	[StructLayout(LayoutKind.Sequential)]
 	public struct MSG
 	{
