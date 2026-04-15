@@ -73,18 +73,8 @@ class Program
 		hInputB = Controls.CreateEditBox(hWnd, 3, 160, 20, 100, 25);
 		hResult = Controls.CreateLabel(hWnd, 4, "Result: ", 50, 100, 200, 25);
 
-		// Add a button
-		IntPtr hButton = CreateWindowEx(
-			0,
-			"BUTTON",
-			"Click Me",
-			0x50010000, // WS_CHILD | WS_VISIBLE | BS_DEFPUSHBUTTON
-			50, 50, 100, 30,
-			hWnd,
-			(IntPtr)1,
-			IntPtr.Zero,
-			IntPtr.Zero);
-
+		IntPtr hButton = Controls.CreateButton(hWnd, 1, "Add", 50, 50, 100, 30);
+		
 		ShowWindow(hWnd, 1);
 		UpdateWindow(hWnd);
 
