@@ -2,28 +2,50 @@
 using System.Runtime.InteropServices;
 using static Win32;
 
-
-
 class Program
 {
 	const int WS_CHILD = 0X40000000;
 	const int WS_VISIBLE = 0x10000000;
 	const int WS_BORDER = 0x00800000;
+	const int WM_COMMAND = 0X0111;
+	const int WM_CLOSE = 0x0010;
+
+	// controls
+	static IntPtr hInputA;
+	static IntPtr hInputB;
+	static IntPtr hResult;
 
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
 		switch (msg)
 		{
-			case 0x0111: // WM_COMMAND
+			case WM_COMMAND: 
 				int controlId = wParam.ToInt32() & 0xFFFF;
 				if (controlId == 1) // button ID
 				{
-					MessageBox(hWnd, "Button clicked!", "Info", 0);
+					// buffers to hold input.
+					var firstInput  = new System.Text.StringBuilder(256);
+					var secondInput = new System.Text.StringBuilder(256);
+
+					// read input.
+					GetWindowText(hInputA, firstInput, firstInput.Capacity);
+					GetWindowText(hInputB, secondInput, secondInput.Capacity);
+
+					// Parse numbers
+					if (int.TryParse(firstInput.ToString(), out int a) && int.TryParse(secondInput.ToString(), out int b))
+					{
+						int sum = a + b;
+						SetWindowText(hResult, $"Result: {sum}");	
+					}
+					else
+					{
+						SetWindowText(hResult, "Invalid input");
+					}
 				}
 				break;
 
-			case 0x0010: // WM_CLOSE
+			case WM_CLOSE: 
 				Environment.Exit(0);
 				break;
 		}
@@ -55,7 +77,7 @@ class Program
 			IntPtr.Zero);
 
 		// First input 
-		IntPtr hInputA = CreateWindowEx(
+		hInputA = CreateWindowEx(
 			0, 
 			"EDIT", "", 
 			WS_CHILD | WS_VISIBLE | WS_BORDER,
@@ -66,12 +88,24 @@ class Program
 		);
 
 		// second input 
-		IntPtr hInputB = CreateWindowEx(
+		hInputB = CreateWindowEx(
 			0,
 			"Edit", "",
 			WS_CHILD | WS_VISIBLE | WS_BORDER,
 			160, 20, 100, 25,
 			hWnd, (IntPtr)3,
+			IntPtr.Zero,
+			IntPtr.Zero
+		);
+
+		hResult = CreateWindowEx(
+			0,
+			"STATIC",
+			"Result: ",
+			WS_CHILD | WS_VISIBLE,
+			50, 100, 200, 25,
+			hWnd,
+			(IntPtr)4,
 			IntPtr.Zero,
 			IntPtr.Zero
 		);

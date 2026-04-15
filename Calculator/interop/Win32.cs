@@ -61,4 +61,8 @@ public static class Win32
 	public static extern bool TranslateMessage([In] ref MSG lpMsg);
 	[DllImport("user32.dll")]
 	public static extern IntPtr DispatchMessage([In] ref MSG lpMsg);
+	[DllImport("user32.dll", CharSet = CharSet.Auto)]
+	public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder lpString, int nMaxCount);
+	[DllImport("user32.dll", CharSet = CharSet.Auto)]
+	public static extern bool SetWindowText(IntPtr hWnd, string lpString);
 }
