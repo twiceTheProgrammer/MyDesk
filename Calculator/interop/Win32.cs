@@ -6,13 +6,13 @@ public static class Win32
 	[StructLayout(LayoutKind.Sequential)]
 	public struct MSG
 	{
-		public IntPtr hwnd;
-		public uint  message;
-		public IntPtr wParam;
-		public IntPtr lParam;
-		public uint time;
-		public int pt_x;
-		public int pt_y;
+		public IntPtr hwnd;    // handle of the window the message is for.
+		public uint  message;  // type of message (WM_COMMAND, WM_CLOSE)
+		public IntPtr wParam;  // extra info (like which button was clicked)
+		public IntPtr lParam;  // more info (like mouse position, control handle)
+		public uint time;   // timestamp
+		public int pt_x;  // mouse x position
+		public int pt_y;  // mouse y position
 	}
 
 	[DllImport("user32.dll", SetLastError =true, CharSet = CharSet.Auto)]
@@ -30,23 +30,23 @@ public static class Win32
 		IntPtr hInstance,
 		IntPtr lpParam);
 
-[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
-    public struct WNDCLASS
-    {
-        public uint style;
-        public IntPtr lpfnWndProc;
-        public int cbClsExtra;
-        public int cbWndExtra;
-        public IntPtr hInstance;
-        public IntPtr hIcon;
-        public IntPtr hCursor;
-        public IntPtr hbrBackground;
-        public string lpszMenuName;
-        public string lpszClassName;
-    }
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+	public struct WNDCLASS
+	{
+		public uint style;           // style flags (e.g redraw on resize)
+		public IntPtr lpfnWndProc;   // pointer to WndProc function
+		public int cbClsExtra;       // extra memory for class
+		public int cbWndExtra;       // extra memory for each window
+		public IntPtr hInstance;     // app instance handle
+		public IntPtr hIcon;         // icon for the window
+		public IntPtr hCursor;       // cursor when hovering over window
+		public IntPtr hbrBackground; // background brush (color/pattern)
+		public string lpszMenuName;  // menu resource name
+		public string lpszClassName; // name of this window class
+	}
 
-    [DllImport("user32.dll", CharSet = CharSet.Auto)]
-    public static extern ushort RegisterClass(ref WNDCLASS lpWndClass);
+	[DllImport("user32.dll", CharSet = CharSet.Auto)]
+	public static extern ushort RegisterClass(ref WNDCLASS lpWndClass);
 	[DllImport("user32.dll")]
 	public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
 

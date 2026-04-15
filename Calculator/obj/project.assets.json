@@ -14,11 +14,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\NjabuloMagagula\\Desktop\\software-engineering\\personal\\projects\\MyHomeDesk\\MyDesk\\Calculator\\Calculator.csproj",
+      "projectUniqueName": "C:\\Users\\NjabuloMagagula\\Desktop\\software-engineering\\personal\\projects\\MyDesk\\Calculator\\Calculator.csproj",
       "projectName": "Calculator",
-      "projectPath": "C:\\Users\\NjabuloMagagula\\Desktop\\software-engineering\\personal\\projects\\MyHomeDesk\\MyDesk\\Calculator\\Calculator.csproj",
+      "projectPath": "C:\\Users\\NjabuloMagagula\\Desktop\\software-engineering\\personal\\projects\\MyDesk\\Calculator\\Calculator.csproj",
       "packagesPath": "C:\\Users\\NjabuloMagagula\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\NjabuloMagagula\\Desktop\\software-engineering\\personal\\projects\\MyHomeDesk\\MyDesk\\Calculator\\obj\\",
+      "outputPath": "C:\\Users\\NjabuloMagagula\\Desktop\\software-engineering\\personal\\projects\\MyDesk\\Calculator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
