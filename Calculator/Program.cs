@@ -60,7 +60,7 @@ class Program
 				{
 					SetWindowText(hResult, "Invalid input");
 				}
-				break;				
+				break;
 			} 
 			case WM_KEYDOWN:
 			{
@@ -137,6 +137,10 @@ class Program
 		IntPtr hbuttonEight = Controls.CreateButton(hWnd, 15, "8", 110, 230, 80, 40);
 		IntPtr hbuttonNine  = Controls.CreateButton(hWnd, 16, "9", 200, 230, 80, 40);
 
+		IntPtr hbuttonDot    = Controls.CreateButton(hWnd, 17, ".", 20, 280, 80, 40);
+		IntPtr hbuttonZero   = Controls.CreateButton(hWnd, 18, "0", 110, 280, 80, 40);
+		IntPtr hbuttonEqual  = Controls.CreateButton(hWnd, 19, "=", 200, 280, 80, 40);
+		
 		ShowWindow(hWnd, 1);
 		UpdateWindow(hWnd);
 
