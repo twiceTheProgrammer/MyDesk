@@ -4,7 +4,6 @@ using static Win32;
 
 class Program
 {
-
 	// controls
 	static IntPtr hInputA, hInputB, hResult;
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
@@ -14,29 +13,53 @@ class Program
 		{
 			case WM_COMMAND: 
 				int controlId = wParam.ToInt32() & 0xFFFF;
-				if (controlId == 1) // button ID
+				// buffers to hold input.
+				var firstInput  = new System.Text.StringBuilder(256);
+				var secondInput = new System.Text.StringBuilder(256);
+
+				// read input.
+				GetWindowText(hInputA, firstInput, firstInput.Capacity);
+				GetWindowText(hInputB, secondInput, secondInput.Capacity);
+
+				// Parse numbers
+				if (int.TryParse(firstInput.ToString(), out int a) && int.TryParse(secondInput.ToString(), out int b))
 				{
-					// buffers to hold input.
-					var firstInput  = new System.Text.StringBuilder(256);
-					var secondInput = new System.Text.StringBuilder(256);
-
-					// read input.
-					GetWindowText(hInputA, firstInput, firstInput.Capacity);
-					GetWindowText(hInputB, secondInput, secondInput.Capacity);
-
-					// Parse numbers
-					if (int.TryParse(firstInput.ToString(), out int a) && int.TryParse(secondInput.ToString(), out int b))
+					switch(controlId)
 					{
-						int sum = a + b;
-						SetWindowText(hResult, $"Result: {sum}");	
-					}
-					else
-					{
-						SetWindowText(hResult, "Invalid input");
+						case 4:
+						{
+							SetWindowText(hResult, $"Result: {a + b}");
+							break;
+						}
+						case 5:
+						{
+							SetWindowText(hResult, $"Result {a * b}");
+							break;
+						}
+						case 6:
+						{
+							SetWindowText(hResult, $"Result: {a - b}");
+							break;
+						}
+						case 7:
+						{
+							if (b != 0)
+							{
+								SetWindowText(hResult, $"Result: {a / b}");
+							}
+							else
+							{
+								SetWindowText(hResult, $"Cannot divide by zero!");
+							}
+							break;
+						}
 					}
 				}
+				else
+				{
+					SetWindowText(hResult, "Invalid input");
+				}
 				break;
-
 			case WM_CLOSE: 
 				Environment.Exit(0);
 				break;
@@ -69,14 +92,14 @@ class Program
 			IntPtr.Zero);
 
 		// child windows. 
-		hInputA = Controls.CreateEditBox(hWnd, 2, 50, 20, 100, 25);
-		hInputB = Controls.CreateEditBox(hWnd, 3, 160, 20, 100, 25);
-		hResult = Controls.CreateLabel(hWnd, 4, "Result: ", 270, 20, 200, 25);
+		hInputA = Controls.CreateEditBox(hWnd, 1, 50, 20, 100, 25);
+		hInputB = Controls.CreateEditBox(hWnd, 2, 160, 20, 100, 25);
+		hResult = Controls.CreateLabel(hWnd, 3, "Result: ", 270, 20, 200, 25);
 
-		IntPtr hButton     = Controls.CreateButton(hWnd, 1, "Add", 50, 50, 100, 30);
+		IntPtr hButton     = Controls.CreateButton(hWnd, 4, "Add", 50, 50, 100, 30);
 		IntPtr hMultButton = Controls.CreateButton(hWnd, 5, "Multiply", 160, 50, 100, 30);
-		IntPtr hSubButton = Controls.CreateButton(hWnd, 5, "Subtract", 270, 50, 100, 30);
-		IntPtr hDivButton = Controls.CreateButton(hWnd, 5, "Divide", 380, 50, 100, 30);
+		IntPtr hSubButton = Controls.CreateButton(hWnd, 6, "Subtract", 270, 50, 100, 30);
+		IntPtr hDivButton = Controls.CreateButton(hWnd, 7, "Divide", 380, 50, 100, 30);
 
 		
 		ShowWindow(hWnd, 1);
