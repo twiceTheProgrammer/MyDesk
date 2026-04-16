@@ -11,7 +11,8 @@ class Program
 	{
 		switch (msg)
 		{
-			case WM_COMMAND: 
+			case WM_COMMAND:
+			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
 				// buffers to hold input.
 				var firstInput  = new System.Text.StringBuilder(256);
@@ -59,10 +60,35 @@ class Program
 				{
 					SetWindowText(hResult, "Invalid input");
 				}
+				break;				
+			} 
+			case WM_KEYDOWN:
+			{
+				if(wParam.ToInt32() == VK_RETURN)
+				{
+					var firstInput = new System.Text.StringBuilder(256);
+					var secondInput = new System.Text.StringBuilder(256);
+
+					GetWindowText(hInputA, firstInput, firstInput.Capacity);
+					GetWindowText(hInputB, secondInput, secondInput.Capacity);
+
+					if (int.TryParse(firstInput.ToString(), out int a) &&
+						int.TryParse(secondInput.ToString(), out int b))
+					{
+						SetWindowText(hResult, $"Result: {a + b}");
+					}
+					else
+					{
+						SetWindowText(hResult, "Invalid input");
+					}				
+				}
 				break;
-			case WM_CLOSE: 
+			}
+			case WM_CLOSE:
+			{
 				Environment.Exit(0);
 				break;
+			} 
 		}
 		return DefWindowProc(hWnd, msg, wParam, lParam);  // Default behavior.
 	}
@@ -92,16 +118,25 @@ class Program
 			IntPtr.Zero);
 
 		// child windows. 
-		hInputA = Controls.CreateEditBox(hWnd, 1, 50, 20, 100, 25);
-		hInputB = Controls.CreateEditBox(hWnd, 2, 160, 20, 100, 25);
-		hResult = Controls.CreateLabel(hWnd, 3, "Result: ", 270, 20, 200, 25);
+		hResult = Controls.CreateLabel(hWnd, 3, "", 20, 20, 500,50);
 
-		IntPtr hButton     = Controls.CreateButton(hWnd, 4, "Add", 50, 50, 100, 30);
-		IntPtr hMultButton = Controls.CreateButton(hWnd, 5, "Multiply", 160, 50, 100, 30);
-		IntPtr hSubButton = Controls.CreateButton(hWnd, 6, "Subtract", 270, 50, 100, 30);
-		IntPtr hDivButton = Controls.CreateButton(hWnd, 7, "Divide", 380, 50, 100, 30);
+		IntPtr hButton     = Controls.CreateButton(hWnd, 4, "Add", 20, 80, 80, 40);
+		IntPtr hMultButton = Controls.CreateButton(hWnd, 5, "Multiply", 110, 80, 80, 40);
+		IntPtr hSubButton  = Controls.CreateButton(hWnd, 6, "Subtract", 200, 80, 80, 40);
+		IntPtr hDivButton  = Controls.CreateButton(hWnd, 7, "Divide", 290, 80, 80, 40);
 
-		
+		IntPtr hbuttonOne   = Controls.CreateButton(hWnd, 8, "1", 20, 130, 80, 40);
+		IntPtr hbuttonTwo   = Controls.CreateButton(hWnd, 9, "2", 110 , 130, 80, 40);
+		IntPtr hbuttonThree = Controls.CreateButton(hWnd, 10, "3", 200 , 130, 80, 40);
+
+		IntPtr hbuttonFour = Controls.CreateButton(hWnd, 11, "4", 20 , 180, 80, 40);
+		IntPtr hbuttonFive = Controls.CreateButton(hWnd, 12, "5", 110 , 180, 80, 40);
+		IntPtr hbuttonSix  = Controls.CreateButton(hWnd, 13, "6", 200 , 180, 80, 40);
+
+		IntPtr hbuttonSeven = Controls.CreateButton(hWnd, 14, "7", 20 , 230, 80, 40);
+		IntPtr hbuttonEight = Controls.CreateButton(hWnd, 15, "8", 110, 230, 80, 40);
+		IntPtr hbuttonNine  = Controls.CreateButton(hWnd, 16, "9", 200, 230, 80, 40);
+
 		ShowWindow(hWnd, 1);
 		UpdateWindow(hWnd);
 

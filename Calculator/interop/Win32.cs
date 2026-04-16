@@ -14,7 +14,13 @@ public static class Win32
 	public const int WM_COMMAND = 0X0111;
 	public const int WM_CLOSE = 0x0010;
 
+	// keyboard
+	public const int WM_KEYDOWN = 0x0100;
+	public const int WM_KEYUP = 0x0101;
+	public const int WM_CHAR = 0x0102; // character input , after translation.
 
+	// common virtual-key codes
+	public const int VK_RETURN = 0x0D;
 	[StructLayout(LayoutKind.Sequential)]
 	public struct MSG
 	{
