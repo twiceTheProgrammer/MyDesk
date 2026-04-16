@@ -5,7 +5,7 @@ using static Win32;
 class Program
 {
 	// controls
-	static IntPtr hInputA, hInputB, hResult;
+	static IntPtr hResult;
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
@@ -14,76 +14,22 @@ class Program
 			case WM_COMMAND:
 			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
-				// buffers to hold input.
-				var firstInput  = new System.Text.StringBuilder(256);
-				var secondInput = new System.Text.StringBuilder(256);
 
-				// read input.
-				GetWindowText(hInputA, firstInput, firstInput.Capacity);
-				GetWindowText(hInputB, secondInput, secondInput.Capacity);
-
-				// Parse numbers
-				if (int.TryParse(firstInput.ToString(), out int a) && int.TryParse(secondInput.ToString(), out int b))
+				if (controlId >= 8 && controlId <= 16)
 				{
-					switch(controlId)
-					{
-						case 4:
-						{
-							SetWindowText(hResult, $"Result: {a + b}");
-							break;
-						}
-						case 5:
-						{
-							SetWindowText(hResult, $"Result {a * b}");
-							break;
-						}
-						case 6:
-						{
-							SetWindowText(hResult, $"Result: {a - b}");
-							break;
-						}
-						case 7:
-						{
-							if (b != 0)
-							{
-								SetWindowText(hResult, $"Result: {a / b}");
-							}
-							else
-							{
-								SetWindowText(hResult, $"Cannot divide by zero!");
-							}
-							break;
-						}
-					}
+					string digit = (controlId - 7).ToString(); // Maps digit with id 8->1, 9 -> 2 etc.
+					var buffer = new System.Text.StringBuilder(256);
+					GetWindowText(hResult, buffer, buffer.Capacity);
+					SetWindowText(hResult, buffer.ToString() + digit);
 				}
-				else
+				else if (controlId == 18)
 				{
-					SetWindowText(hResult, "Invalid input");
+					var buffer = new System.Text.StringBuilder(256);
+					GetWindowText(hResult, buffer, buffer.Capacity);
+					SetWindowText(hResult, buffer.ToString() + "0");
 				}
 				break;
 			} 
-			case WM_KEYDOWN:
-			{
-				if(wParam.ToInt32() == VK_RETURN)
-				{
-					var firstInput = new System.Text.StringBuilder(256);
-					var secondInput = new System.Text.StringBuilder(256);
-
-					GetWindowText(hInputA, firstInput, firstInput.Capacity);
-					GetWindowText(hInputB, secondInput, secondInput.Capacity);
-
-					if (int.TryParse(firstInput.ToString(), out int a) &&
-						int.TryParse(secondInput.ToString(), out int b))
-					{
-						SetWindowText(hResult, $"Result: {a + b}");
-					}
-					else
-					{
-						SetWindowText(hResult, "Invalid input");
-					}				
-				}
-				break;
-			}
 			case WM_CLOSE:
 			{
 				Environment.Exit(0);
@@ -120,11 +66,13 @@ class Program
 		// child windows. 
 		hResult = Controls.CreateLabel(hWnd, 3, "", 20, 20, 500,50);
 
+		// Operators
 		IntPtr hButton     = Controls.CreateButton(hWnd, 4, "Add", 20, 80, 80, 40);
 		IntPtr hMultButton = Controls.CreateButton(hWnd, 5, "Multiply", 110, 80, 80, 40);
 		IntPtr hSubButton  = Controls.CreateButton(hWnd, 6, "Subtract", 200, 80, 80, 40);
 		IntPtr hDivButton  = Controls.CreateButton(hWnd, 7, "Divide", 290, 80, 80, 40);
 
+		// Digits
 		IntPtr hbuttonOne   = Controls.CreateButton(hWnd, 8, "1", 20, 130, 80, 40);
 		IntPtr hbuttonTwo   = Controls.CreateButton(hWnd, 9, "2", 110 , 130, 80, 40);
 		IntPtr hbuttonThree = Controls.CreateButton(hWnd, 10, "3", 200 , 130, 80, 40);
@@ -137,6 +85,7 @@ class Program
 		IntPtr hbuttonEight = Controls.CreateButton(hWnd, 15, "8", 110, 230, 80, 40);
 		IntPtr hbuttonNine  = Controls.CreateButton(hWnd, 16, "9", 200, 230, 80, 40);
 
+		// Bottom row
 		IntPtr hbuttonDot    = Controls.CreateButton(hWnd, 17, ".", 20, 280, 80, 40);
 		IntPtr hbuttonZero   = Controls.CreateButton(hWnd, 18, "0", 110, 280, 80, 40);
 		IntPtr hbuttonEqual  = Controls.CreateButton(hWnd, 19, "=", 200, 280, 80, 40);
