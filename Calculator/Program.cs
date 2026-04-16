@@ -71,9 +71,13 @@ class Program
 		// child windows. 
 		hInputA = Controls.CreateEditBox(hWnd, 2, 50, 20, 100, 25);
 		hInputB = Controls.CreateEditBox(hWnd, 3, 160, 20, 100, 25);
-		hResult = Controls.CreateLabel(hWnd, 4, "Result: ", 50, 100, 200, 25);
+		hResult = Controls.CreateLabel(hWnd, 4, "Result: ", 270, 20, 200, 25);
 
-		IntPtr hButton = Controls.CreateButton(hWnd, 1, "Add", 50, 50, 100, 30);
+		IntPtr hButton     = Controls.CreateButton(hWnd, 1, "Add", 50, 50, 100, 30);
+		IntPtr hMultButton = Controls.CreateButton(hWnd, 5, "Multiply", 160, 50, 100, 30);
+		IntPtr hSubButton = Controls.CreateButton(hWnd, 5, "Subtract", 270, 50, 100, 30);
+		IntPtr hDivButton = Controls.CreateButton(hWnd, 5, "Divide", 380, 50, 100, 30);
+
 		
 		ShowWindow(hWnd, 1);
 		UpdateWindow(hWnd);

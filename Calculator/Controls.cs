@@ -20,7 +20,7 @@ public static class Controls
 			"STATIC",
 			text,
 			Win32.WS_CHILD | Win32.WS_VISIBLE,
-			50, 100, 200, 25,
+			x, y, width, height,
 			hWnd,
 			(IntPtr)id,
 			IntPtr.Zero,
