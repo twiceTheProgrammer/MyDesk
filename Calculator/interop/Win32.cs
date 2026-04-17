@@ -19,18 +19,27 @@ public static class Win32
 	public const int WS_THICKFRAME = 0x00040000;
 	public const int WS_MINIMIZEBOX = 0x00020000;
 	public const int WS_MAXIMIZEBOX = 0x00010000;
-	public const int WS_OVERLAPPEDWINDOW =  WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX;
+	public const int WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION| WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU;
 
-	// Buttons
+	// Buttons & styles
 	public const int BS_DEFPUSHBUTTON = 0x00000001;
+	public const int BS_FLAT = 0x00008000;
+	public const int BS_CENTER = 0x00000300;
+	public const int SS_CENTER = 0x00000001;
+
 	// Messages
 	public const int WM_COMMAND = 0X0111;
 	public const int WM_CLOSE = 0x0010;
-
-	// keyboard
+	public const int WM_CTLCOLORSTATIC = 0x0138;
 	public const int WM_KEYDOWN = 0x0100;
 	public const int WM_KEYUP = 0x0101;
 	public const int WM_CHAR = 0x0102; // character input , after translation.
+	public const int WM_CTLCOLORBTN = 0x0135;
+	public const int WM_SETFONT = 0x0030;  // FONT msg
+
+	// Background 
+	public const int TRANSPARENT = 1;
+	public const int OPAQUE   	= 2;
 
 	// common virtual-key codes
 	public const int VK_RETURN = 0x0D;
@@ -98,4 +107,10 @@ public static class Win32
 	public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder lpString, int nMaxCount);
 	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 	public static extern bool SetWindowText(IntPtr hWnd, string lpString);
+	[DllImport("gdi32.dll")]
+	public static extern IntPtr CreateSolidBrush(int color);
+	[DllImport("gdi32.dll")]
+	public static extern IntPtr SetTextColor(IntPtr hdc, int color);
+	[DllImport("gdi32.dll")]
+	public static extern int SetBkMode(IntPtr hdc, int mode);
 }

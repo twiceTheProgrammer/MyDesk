@@ -30,6 +30,20 @@ class Program
 				}
 				break;
 			} 
+			case WM_CTLCOLORSTATIC:
+			{
+				IntPtr hdc = wParam;   // handle device context
+				SetTextColor(hdc, 0x00FFFFFF);  // white text.
+				SetBkMode(hdc, 1);     // transparent background.
+				return CreateSolidBrush(0x00463414);
+			}
+			case WM_CTLCOLORBTN:
+			{
+				IntPtr hdc = wParam; 
+				SetTextColor(hdc, 0x00000000);
+				SetBkMode(hdc, 1);
+				return CreateSolidBrush(0x00FFFFFF);
+			}
 			case WM_CLOSE:
 			{
 				Environment.Exit(0);
