@@ -56,7 +56,7 @@ class Program
 			0,
 			className,
 			"Calculator",
-			0xCF0000, // WS_OVERLAPPEDWINDOW
+			WS_OVERLAPPEDWINDOW,
 			100, 100, 400, 400,
 			IntPtr.Zero,
 			IntPtr.Zero,
