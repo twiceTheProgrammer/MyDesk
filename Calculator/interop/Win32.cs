@@ -33,9 +33,9 @@ public static class Win32
 		public int pt_y;  // mouse y position
 	}
 
-	[DllImport("user32.dll", SetLastError =true, CharSet = CharSet.Auto)]
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
     public static extern int MessageBox(IntPtr hWnd, string lpText, string lpCaption, uint uType);
-	[DllImport("user32.dll", SetLastError =true, CharSet = CharSet.Auto)]
+	[DllImport("user32.dll", SetLastError = true)]
 	public static extern IntPtr CreateWindowEx(
 		int dwExStyle,
 		string lpClassName,
@@ -48,7 +48,7 @@ public static class Win32
 		IntPtr hInstance,
 		IntPtr lpParam);
 
-	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
 	public struct WNDCLASS
 	{
 		public uint style;           // style flags (e.g redraw on resize)
@@ -59,11 +59,13 @@ public static class Win32
 		public IntPtr hIcon;         // icon for the window
 		public IntPtr hCursor;       // cursor when hovering over window
 		public IntPtr hbrBackground; // background brush (color/pattern)
+		[MarshalAs(UnmanagedType.LPWStr)]
 		public string lpszMenuName;  // menu resource name
+		[MarshalAs(UnmanagedType.LPWStr)]
 		public string lpszClassName; // name of this window class
 	}
 
-	[DllImport("user32.dll", CharSet = CharSet.Auto)]
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 	public static extern ushort RegisterClass(ref WNDCLASS lpWndClass);
 	[DllImport("user32.dll")]
 	public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
@@ -79,8 +81,8 @@ public static class Win32
 	public static extern bool TranslateMessage([In] ref MSG lpMsg);
 	[DllImport("user32.dll")]
 	public static extern IntPtr DispatchMessage([In] ref MSG lpMsg);
-	[DllImport("user32.dll", CharSet = CharSet.Auto)]
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 	public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder lpString, int nMaxCount);
-	[DllImport("user32.dll", CharSet = CharSet.Auto)]
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 	public static extern bool SetWindowText(IntPtr hWnd, string lpString);
 }
