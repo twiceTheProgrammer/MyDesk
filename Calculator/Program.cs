@@ -2,8 +2,13 @@
 using System.Runtime.InteropServices;
 using static Win32;
 
+
 class Program
 {
+	static string currentInput = "";
+	static double leftOperand = 0;
+	static string? pendingOperator = null;
+
 	// controls
 	static IntPtr hResult;
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
@@ -14,32 +19,67 @@ class Program
 			case WM_COMMAND:
 			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
-				string digit = (controlId - 4).ToString(); // Maps digit with id 8->1, 9 -> 2 etc.
-				// string currentInput = "";
-				// double leftOperand = 0;
-				// string pendingOperator = null;
+				string? digit = null; // Maps digit with id 8->1, 9 -> 2 etc.
 
-				if ((controlId >= 5 && controlId <= 7) || (controlId >= 9 && controlId <= 11) || (controlId >= 13 && controlId <= 15))  
+				switch(controlId)
 				{
-					var buffer = new System.Text.StringBuilder(256);
-					GetWindowText(hResult, buffer, buffer.Capacity);
-					SetWindowText(hResult, buffer.ToString() + digit);
+					// digit mapping
+					case 2:
+					{
+						currentInput = "";
+						leftOperand = 0;
+						pendingOperator = null;
+						SetWindowText(hResult, "");
+						break;
+					}
+					case 3:
+					{
+						if(currentInput.Length > 0)
+						{
+							currentInput = currentInput.Substring(0, currentInput.Length - 1);
+							SetWindowText(hResult, currentInput);
+						}
+						break;
+					}
+					case 4:  pendingOperator = "/"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 5:  digit = "1"; break;
+					case 6:  digit = "2"; break;
+					case 7:  digit = "3"; break;
+					case 8:  pendingOperator = "*"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 9:  digit = "4"; break;
+					case 10: digit = "5"; break;
+					case 11: digit = "6"; break;
+					case 12: pendingOperator = "+"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 13: digit = "7"; break;
+					case 14: digit = "8"; break;
+					case 15: digit = "9"; break;
+					case 16: pendingOperator = "-"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 18: digit = "0"; break;
+					case 19:
+					{
+						if (double.TryParse(currentInput, out double rightOperand))
+						{
+							double result = 0;
+							switch(pendingOperator)
+							{
+								case "+": result = leftOperand + rightOperand; break;
+								case "-": result = leftOperand - rightOperand; break;
+								case "*": result = leftOperand * rightOperand; break;
+								case "/": result = rightOperand != 0 ? leftOperand / rightOperand : double.NaN; break;
+							}
+
+							SetWindowText(hResult, result.ToString());
+							currentInput = result.ToString();  // allow chaining.
+							pendingOperator = null;
+						}
+						break;
+					}
+
 				}
-				else if (controlId == 18)
+				if (digit != null)  
 				{
-					var buffer = new System.Text.StringBuilder(256);
-					GetWindowText(hResult, buffer, buffer.Capacity);
-					SetWindowText(hResult, buffer.ToString() + "0");
-				}
-				else if (controlId == 2)
-				{
-					SetWindowText(hResult, "");
-				}
-				else if (controlId == 4)
-				{
-					var buffer = new System.Text.StringBuilder(255);
-					GetWindowText(hResult, buffer, buffer.Capacity);
-					SetWindowText(hResult, buffer.ToString() + " / " + digit + " = " );
+					currentInput += digit;
+					SetWindowText(hResult, currentInput);
 				}
 				break;
 			} 
