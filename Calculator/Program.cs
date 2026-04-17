@@ -14,10 +14,13 @@ class Program
 			case WM_COMMAND:
 			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
+				string digit = (controlId - 4).ToString(); // Maps digit with id 8->1, 9 -> 2 etc.
+				// string currentInput = "";
+				// double leftOperand = 0;
+				// string pendingOperator = null;
 
-				if (controlId >= 8 && controlId <= 16)
+				if ((controlId >= 5 && controlId <= 7) || (controlId >= 9 && controlId <= 11) || (controlId >= 13 && controlId <= 15))  
 				{
-					string digit = (controlId - 7).ToString(); // Maps digit with id 8->1, 9 -> 2 etc.
 					var buffer = new System.Text.StringBuilder(256);
 					GetWindowText(hResult, buffer, buffer.Capacity);
 					SetWindowText(hResult, buffer.ToString() + digit);
@@ -27,6 +30,16 @@ class Program
 					var buffer = new System.Text.StringBuilder(256);
 					GetWindowText(hResult, buffer, buffer.Capacity);
 					SetWindowText(hResult, buffer.ToString() + "0");
+				}
+				else if (controlId == 2)
+				{
+					SetWindowText(hResult, "");
+				}
+				else if (controlId == 4)
+				{
+					var buffer = new System.Text.StringBuilder(255);
+					GetWindowText(hResult, buffer, buffer.Capacity);
+					SetWindowText(hResult, buffer.ToString() + " / " + digit + " = " );
 				}
 				break;
 			} 
@@ -78,31 +91,31 @@ class Program
 			IntPtr.Zero);
 
 		// child windows. 
-		hResult = Controls.CreateLabel(hWnd, 3, "", 20, 20, 350,50);
+		hResult = Controls.CreateLabel(hWnd, 1, "", 20, 20, 350,50);
 
 		// GUI
-		IntPtr hClearButton  = Controls.CreateButton(hWnd, 4, "AC", 20, 80, 170, 40);
-		IntPtr hDeleteButton = Controls.CreateButton(hWnd, 5, "DEL",200, 80, 80, 40);
-		IntPtr hDivideButton = Controls.CreateButton(hWnd, 6, "%", 290, 80, 80, 40);
+		IntPtr hClearButton  = Controls.CreateButton(hWnd, 2, "AC", 20, 80, 170, 40);
+		IntPtr hDeleteButton = Controls.CreateButton(hWnd, 3, "DEL",200, 80, 80, 40);
+		IntPtr hDivideButton = Controls.CreateButton(hWnd, 4, "%", 290, 80, 80, 40);
 
-		IntPtr hbuttonTwo      = Controls.CreateButton(hWnd, 7, "1", 20, 130, 80, 40);
-		IntPtr hbuttonThree    = Controls.CreateButton(hWnd, 8, "2", 110 , 130, 80, 40);
-		IntPtr hButtonFour     = Controls.CreateButton(hWnd, 9, "3", 200, 130, 80, 40);
-		IntPtr hMultiplyButton = Controls.CreateButton(hWnd, 10, "*", 290, 130, 80, 40);
+		IntPtr hbuttonTwo      = Controls.CreateButton(hWnd, 5, "1", 20, 130, 80, 40);
+		IntPtr hbuttonThree    = Controls.CreateButton(hWnd, 6, "2", 110 , 130, 80, 40);
+		IntPtr hButtonFour     = Controls.CreateButton(hWnd, 7, "3", 200, 130, 80, 40);
+		IntPtr hMultiplyButton = Controls.CreateButton(hWnd, 8, "*", 290, 130, 80, 40);
 
-		IntPtr hbuttonFour  = Controls.CreateButton(hWnd, 11, "4", 20 ,  180, 80, 40);
-		IntPtr hbuttonFive  = Controls.CreateButton(hWnd, 12, "5", 110 , 180, 80, 40);
-		IntPtr hbuttonSix   = Controls.CreateButton(hWnd, 13, "6", 200 , 180, 80, 40);
-		IntPtr hAddbutton   = Controls.CreateButton(hWnd, 14, "+", 290 , 180, 80, 40);
+		IntPtr hbuttonFour  = Controls.CreateButton(hWnd, 9, "4", 20 ,  180, 80, 40);
+		IntPtr hbuttonFive  = Controls.CreateButton(hWnd, 10, "5", 110 , 180, 80, 40);
+		IntPtr hbuttonSix   = Controls.CreateButton(hWnd, 11, "6", 200 , 180, 80, 40);
+		IntPtr hAddbutton   = Controls.CreateButton(hWnd, 12, "+", 290 , 180, 80, 40);
 
-		IntPtr hButtonSeven = Controls.CreateButton(hWnd, 15, "7", 20,  230, 80, 40);
-		IntPtr hbuttonEight = Controls.CreateButton(hWnd, 16, "8", 110, 230, 80, 40);
-		IntPtr hbuttonNine  = Controls.CreateButton(hWnd, 17, "9", 200, 230, 80, 40);
-		IntPtr hbuttonDot   = Controls.CreateButton(hWnd, 18, "-", 290, 230, 80, 40);
+		IntPtr hButtonSeven = Controls.CreateButton(hWnd, 13, "7", 20,  230, 80, 40);
+		IntPtr hbuttonEight = Controls.CreateButton(hWnd, 14, "8", 110, 230, 80, 40);
+		IntPtr hbuttonNine  = Controls.CreateButton(hWnd, 15, "9", 200, 230, 80, 40);
+		IntPtr hbuttonDot   = Controls.CreateButton(hWnd, 16, "-", 290, 230, 80, 40);
 
-		IntPtr hButtonDot    = Controls.CreateButton(hWnd, 19, ".", 20, 280, 80, 40);
-		IntPtr hbuttonZero   = Controls.CreateButton(hWnd, 20, "0", 110, 280, 80, 40);
-		IntPtr hbuttonEqual  = Controls.CreateButton(hWnd, 21, "=", 200, 280, 170, 40);
+		IntPtr hButtonDot    = Controls.CreateButton(hWnd, 17, ".", 20, 280, 80, 40);
+		IntPtr hbuttonZero   = Controls.CreateButton(hWnd, 18, "0", 110, 280, 80, 40);
+		IntPtr hbuttonEqual  = Controls.CreateButton(hWnd, 19, "=", 200, 280, 170, 40);
 		
 		ShowWindow(hWnd, 1);
 		UpdateWindow(hWnd);
