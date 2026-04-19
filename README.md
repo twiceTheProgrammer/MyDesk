@@ -1,5 +1,6 @@
 # MyDesk
-This project is a personal productivity suite consisting of Desktop Apps.
+This project is a personal productivity suite consisting of Windows Desktop Apps.
+Also just to remind myself of the good old win32 gui programming.
 ### Calculator Demo 
 ![Calculator](calculator.png)
 
