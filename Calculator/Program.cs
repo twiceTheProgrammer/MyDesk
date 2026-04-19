@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using static Win32;
-
+using Calculator.API;
 
 class Program
 {
@@ -41,19 +41,64 @@ class Program
 						}
 						break;
 					}
-					case 4:  pendingOperator = "/"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 4:
+					{
+						if (double.TryParse(currentInput, out leftOperand))
+						{
+					 		pendingOperator = "/"; 
+							currentInput = ""; 
+							SetWindowText(hResult, "");
+						}
+						break;
+					}
 					case 5:  digit = "1"; break;
 					case 6:  digit = "2"; break;
 					case 7:  digit = "3"; break;
-					case 8:  pendingOperator = "*"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 8:
+					{
+						if(double.TryParse(currentInput, out leftOperand))
+						{
+					 		pendingOperator = "*";
+							currentInput = "";
+							SetWindowText(hResult, "");
+						}
+						break;
+					}
 					case 9:  digit = "4"; break;
 					case 10: digit = "5"; break;
 					case 11: digit = "6"; break;
-					case 12: pendingOperator = "+"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 12:
+					{
+						if ( double.TryParse(currentInput, out leftOperand))
+						{
+							pendingOperator = "+"; 
+							currentInput = "";
+							SetWindowText(hResult, "");
+						}
+						break;
+					}
 					case 13: digit = "7"; break;
 					case 14: digit = "8"; break;
 					case 15: digit = "9"; break;
-					case 16: pendingOperator = "-"; leftOperand = double.Parse(currentInput); currentInput = ""; break;
+					case 16:
+					{
+						if(double.TryParse(currentInput, out leftOperand))
+						{
+							pendingOperator = "-"; 
+							currentInput = "";
+							SetWindowText(hResult, "");
+						}
+						break;
+					}
+					case 17:
+					{
+						if(!currentInput.Contains("."))  // prevent multiple decimals
+						{
+							currentInput = currentInput.Length == 0 ? "0." : currentInput + ".";
+							SetWindowText(hResult, currentInput);
+						}
+						break;
+					}
 					case 18: digit = "0"; break;
 					case 19:
 					{
@@ -68,8 +113,9 @@ class Program
 								case "/": result = rightOperand != 0 ? leftOperand / rightOperand : double.NaN; break;
 							}
 
-							SetWindowText(hResult, result.ToString());
-							currentInput = result.ToString();  // allow chaining.
+							SetWindowText(hResult, result.ToString("0.##")); // format nicely
+							currentInput = "";   // reset for next input
+							leftOperand = result;  // allow chaining.
 							pendingOperator = null;
 						}
 						break;
