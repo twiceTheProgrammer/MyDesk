@@ -107,7 +107,7 @@ class Program
 							double result = 0;
 							switch(pendingOperator)
 							{
-								case "+": result = leftOperand + rightOperand; break;
+								case "+": result = CalculatorAPI.Add(leftOperand, rightOperand); break;
 								case "-": result = leftOperand - rightOperand; break;
 								case "*": result = leftOperand * rightOperand; break;
 								case "/": result = rightOperand != 0 ? leftOperand / rightOperand : double.NaN; break;

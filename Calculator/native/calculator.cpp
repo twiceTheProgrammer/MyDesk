@@ -3,8 +3,8 @@
 #define API __declspec(dllexport)
 
 extern "C" {
-	API int Add(int a, int b)      { return a + b; }
-	API int Subtract(int a, int b) { return a - b; }
-	API int Multiply(int a, int b) { return a * b; }
-	API double Divide(int a, int b) { return b == 0 ? 0.0 : static_cast<double>(a) / b;}
+	API double Add(double a, double b)      { return a + b; }
+	API double Subtract(double a, double b) { return a - b; }
+	API double Multiply(double a, double b) { return a * b; }
+	API double Divide(double a, double b) { return b == 0 ? 0.0 : static_cast<double>(a) / b;}
 }
