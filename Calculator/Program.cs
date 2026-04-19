@@ -5,12 +5,9 @@ using Calculator.API;
 
 class Program
 {
-	static string currentInput = "";
-	static double leftOperand = 0;
-	static string? pendingOperator = null;
-
-	// controls
 	static IntPtr hResult;
+	static State state = new State();
+	static Engine engine = new Engine(state);
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
@@ -19,121 +16,52 @@ class Program
 			case WM_COMMAND:
 			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
-				string? digit = null; // Maps digit with id 8->1, 9 -> 2 etc.
 
 				switch(controlId)
 				{
 					// digit mapping
 					case 2:
 					{
-						currentInput = "";
-						leftOperand = 0;
-						pendingOperator = null;
+						state.Reset();
 						SetWindowText(hResult, "");
 						break;
 					}
 					case 3:
 					{
-						if(currentInput.Length > 0)
+						if(state.CurrentInput.Length > 0)
 						{
-							currentInput = currentInput.Substring(0, currentInput.Length - 1);
-							SetWindowText(hResult, currentInput);
+							state.CurrentInput = state.CurrentInput.Substring(0, state.CurrentInput.Length - 1);
+							SetWindowText(hResult, state.CurrentInput);
 						}
 						break;
 					}
-					case 4:
-					{
-						if (double.TryParse(currentInput, out leftOperand))
-						{
-					 		pendingOperator = "/"; 
-							currentInput = ""; 
-							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
-						}
-						break;
-					}
-					case 5:  digit = "1"; break;
-					case 6:  digit = "2"; break;
-					case 7:  digit = "3"; break;
-					case 8:
-					{
-						if(double.TryParse(currentInput, out leftOperand))
-						{
-					 		pendingOperator = "*";
-							currentInput = "";
-							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
-						}
-						break;
-					}
-					case 9:  digit = "4"; break;
-					case 10: digit = "5"; break;
-					case 11: digit = "6"; break;
-					case 12:
-					{
-						if ( double.TryParse(currentInput, out leftOperand))
-						{
-							pendingOperator = "+"; 
-							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
-							currentInput = "";  // reset for next number.
-						}
-						break;
-					}
-					case 13: digit = "7"; break;
-					case 14: digit = "8"; break;
-					case 15: digit = "9"; break;
-					case 16:
-					{
-						if(double.TryParse(currentInput, out leftOperand))
-						{
-							pendingOperator = "-"; 
-							currentInput = "";
-							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
-						}
-						break;
-					}
-					case 17:
-					{
-						if(!currentInput.Contains("."))  // prevent multiple decimals
-						{
-							currentInput = currentInput.Length == 0 ? "0." : currentInput + ".";
-							SetWindowText(hResult, currentInput);
-						}
-						break;
-					}
-					case 18: digit = "0"; break;
+					case 4:  engine.SetOperator("/"); SetWindowText(hResult, $"{state.LeftOperand} /"); break;
+					case 5:  engine.AppendDigit("1"); SetWindowText(hResult, state.CurrentInput); break;
+					case 6:  engine.AppendDigit("2"); SetWindowText(hResult, state.CurrentInput); break;
+					case 7:  engine.AppendDigit("3"); SetWindowText(hResult, state.CurrentInput); break;
+
+					case 8:	 engine.SetOperator("*"); SetWindowText(hResult, $"{state.LeftOperand} x"); break;
+					case 9:  engine.AppendDigit("4"); SetWindowText(hResult, state.CurrentInput); break;
+					case 10: engine.AppendDigit("5"); SetWindowText(hResult, state.CurrentInput); break;
+					case 11: engine.AppendDigit("6"); SetWindowText(hResult, state.CurrentInput); break;
+
+					case 12: engine.SetOperator("+"); SetWindowText(hResult, $"{state.LeftOperand} +"); break;
+					case 13: engine.AppendDigit("7"); SetWindowText(hResult, state.CurrentInput); break;
+					case 14: engine.AppendDigit("8"); SetWindowText(hResult, state.CurrentInput); break;
+					case 15: engine.AppendDigit("9"); SetWindowText(hResult, state.CurrentInput); break;
+					
+					case 16: engine.SetOperator("-"); SetWindowText(hResult, $"{state.LeftOperand} -"); break;
+					case 17: engine.AppendDecimal();  SetWindowText(hResult, state.CurrentInput); break;
+					case 18: engine.AppendDigit("0"); SetWindowText(hResult, state.CurrentInput); break;
 					case 19:
 					{
-						if (double.TryParse(currentInput, out double rightOperand))
+						if (double.TryParse(state.CurrentInput, out double rightOperand))
 						{
-							double result = 0;
-							switch(pendingOperator)
-							{
-								case "+": result = CalculatorAPI.Add(leftOperand, rightOperand); break;
-								case "-": result = CalculatorAPI.Subtract(leftOperand, rightOperand); break;
-								case "*": result = CalculatorAPI.Multiply(leftOperand, rightOperand); break;
-								case "/": result = CalculatorAPI.Divide(leftOperand, rightOperand); break;
-							}
-
-							// Handle Number / 0. Show a friendly message.
-							if (double.IsNaN(result))
-							{
-								SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = Undefined"); // format nicely
-							} 
-							else
-							{								
-								SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = {result}"); // format nicely
-								currentInput = "";   // reset for next input
-								leftOperand = result;  // allow chaining.
-								pendingOperator = null;
-							}
+							string output = engine.Evaluate(rightOperand);
+							SetWindowText(hResult, output);
 						}
 						break;
 					}
-
-				}
-				if (digit != null)  
-				{
-					currentInput += digit;
-					SetWindowText(hResult, currentInput);
 				}
 				break;
 			} 
