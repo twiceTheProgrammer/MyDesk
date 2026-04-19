@@ -1,6 +1,6 @@
 # MyDesk
 This project is a personal productivity suite consisting of Windows Desktop Apps.
-Also just to remind myself of the good old win32 gui programming.
+Also just to remind myself of the good old win32 gui programming using C#.Net/Pinvoke and C++.
 ### Calculator Demo 
 ![Calculator](calculator.png)
 

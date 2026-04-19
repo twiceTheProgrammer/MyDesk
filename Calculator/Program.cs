@@ -108,9 +108,9 @@ class Program
 							switch(pendingOperator)
 							{
 								case "+": result = CalculatorAPI.Add(leftOperand, rightOperand); break;
-								case "-": result = leftOperand - rightOperand; break;
-								case "*": result = leftOperand * rightOperand; break;
-								case "/": result = rightOperand != 0 ? leftOperand / rightOperand : double.NaN; break;
+								case "-": result = CalculatorAPI.Subtract(leftOperand, rightOperand); break;
+								case "*": result = CalculatorAPI.Multiply(leftOperand, rightOperand); break;
+								case "/": result = CalculatorAPI.Divide(leftOperand, rightOperand); break;
 							}
 
 							SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = {result}"); // format nicely
