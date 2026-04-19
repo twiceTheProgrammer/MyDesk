@@ -113,10 +113,18 @@ class Program
 								case "/": result = CalculatorAPI.Divide(leftOperand, rightOperand); break;
 							}
 
-							SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = {result}"); // format nicely
-							currentInput = "";   // reset for next input
-							leftOperand = result;  // allow chaining.
-							pendingOperator = null;
+							// Handle Number / 0. Show a friendly message.
+							if (double.IsNaN(result))
+							{
+								SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = Undefined"); // format nicely
+							} 
+							else
+							{								
+								SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = {result}"); // format nicely
+								currentInput = "";   // reset for next input
+								leftOperand = result;  // allow chaining.
+								pendingOperator = null;
+							}
 						}
 						break;
 					}

@@ -22,5 +22,4 @@ namespace Calculator.API
 		[DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
 		public static extern double Divide(double a, double b);
 	}
-
 }
