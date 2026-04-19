@@ -47,7 +47,7 @@ class Program
 						{
 					 		pendingOperator = "/"; 
 							currentInput = ""; 
-							SetWindowText(hResult, "");
+							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
 						}
 						break;
 					}
@@ -60,7 +60,7 @@ class Program
 						{
 					 		pendingOperator = "*";
 							currentInput = "";
-							SetWindowText(hResult, "");
+							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
 						}
 						break;
 					}
@@ -72,8 +72,8 @@ class Program
 						if ( double.TryParse(currentInput, out leftOperand))
 						{
 							pendingOperator = "+"; 
-							currentInput = "";
-							SetWindowText(hResult, "");
+							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
+							currentInput = "";  // reset for next number.
 						}
 						break;
 					}
@@ -86,7 +86,7 @@ class Program
 						{
 							pendingOperator = "-"; 
 							currentInput = "";
-							SetWindowText(hResult, "");
+							SetWindowText(hResult, $"{leftOperand} {pendingOperator}");
 						}
 						break;
 					}
@@ -113,7 +113,7 @@ class Program
 								case "/": result = rightOperand != 0 ? leftOperand / rightOperand : double.NaN; break;
 							}
 
-							SetWindowText(hResult, result.ToString("0.##")); // format nicely
+							SetWindowText(hResult, $"{leftOperand} {pendingOperator} {rightOperand} = {result}"); // format nicely
 							currentInput = "";   // reset for next input
 							leftOperand = result;  // allow chaining.
 							pendingOperator = null;
