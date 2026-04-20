@@ -12,7 +12,5 @@ namespace Calculator.API
 			LeftOperand = 0;
 			PendingOperator = null;
 		}
-
 	}
-
 }
