@@ -36,7 +36,12 @@ class Program
 					} 
 					case 3:
 					{
+						int selected = SendMessage(hTaskList, LB_GETCURSEL, IntPtr.Zero, IntPtr.Zero);
 						
+						if (selected != -1)
+						{
+							SendMessage(hTaskList, LB_DELETESTRING, (IntPtr)selected, IntPtr.Zero);
+						}
 						break;
 					}
 				}
