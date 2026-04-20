@@ -31,12 +31,17 @@ public static class Win32
 	public const int LBS_NOTIFY = 0x0001;
 	public const int LBS_SORT = 0x0002;
 	public const int LBS_HASSTRINGS = 0x0040;
+	public const int LB_ADDSTRING = 0x0180;
+	public const int LB_DELETESTRING = 0x0182;
+	public const int LB_GETCURSEL = 0x0188;
 	#endregion
+
 	#region Static Controls styles
 	public const int SS_LEFT = 0x00000000;
 	public const int SS_CENTER = 0x00000001;
 	public const int SS_RIGHT = 0x00000002;
 	#endregion
+
 	#region Window messages
 	public const int WM_COMMAND = 0x0111;
 	public const int WM_CLOSE = 0x0010;
@@ -46,6 +51,8 @@ public static class Win32
 	public const int WM_CHAR = 0x0102;
 	public const int WM_CTLCOLORBTN = 0x0135;
 	public const int WM_SETFONT = 0x0030;
+	public const int WM_GETTEXT = 0x000D;
+	public const int WM_GETTEXTLENGTH = 0x000E;
 	#endregion
 
 	[StructLayout(LayoutKind.Sequential)]
@@ -94,4 +101,10 @@ public static class Win32
 	public static extern IntPtr DispatchMessage([In] ref MSG lpMsg); 
 	[DllImport("user32.dll")]
 	public static extern IntPtr SetWindowText(IntPtr hWnd, string lpString);
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+	public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder lpString, int nMaxCount);
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+	public static extern int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, string lParam);
+	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+	public static extern int SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 }

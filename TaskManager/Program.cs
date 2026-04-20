@@ -5,24 +5,44 @@ using static Win32;
 
 class Program
 {
+	static IntPtr hTaskInput;
+	static IntPtr hTaskList;
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
 		switch(msg)
 		{
-			case 0x0111:   // WM_COMMAND 
+			case WM_COMMAND: 
 			{
 				int controlId = wParam.ToInt32() & 0xffff;
 				switch(controlId)
 				{
-					case 2:   // Add button 
+					case 2:
+					{
+						// get text length
+						int length = SendMessage(hTaskInput, WM_GETTEXTLENGTH, IntPtr.Zero, IntPtr.Zero);
+						
+						if (length > 0)
+						{
+							var sb = new System.Text.StringBuilder(length + 1);
+							GetWindowText(hTaskInput, sb, sb.Capacity);
+
+							SendMessage(hTaskList, LB_ADDSTRING, IntPtr.Zero, sb.ToString());
+
+							// clear list box after adding task.
+							SetWindowText(hTaskInput, "");
+						}
 						break;
-					case 3:   // Delete button 
+					} 
+					case 3:
+					{
+						
 						break;
+					}
 				}
 				break;
 			}
-			case 0x0010:  // WM_CLOSE 
+			case WM_CLOSE: 
 			{
 				Environment.Exit(0);
 				break;	
@@ -66,7 +86,7 @@ class Program
 			IntPtr.Zero
 		);
 
-		IntPtr hTaskInput = CreateWindowEx(
+		hTaskInput = CreateWindowEx(
 			0, "EDIT", "",
 			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT,
 			20, 25, 250, 25,
@@ -86,7 +106,7 @@ class Program
 			IntPtr.Zero
 		);
 
-		IntPtr hTaskList = CreateWindowEx(
+		hTaskList = CreateWindowEx(
 			0, "LISTBOX", "",
 			WS_CHILD | WS_VISIBLE | WS_BORDER | LBS_NOTIFY,
 			20, 60, 340, 200,
