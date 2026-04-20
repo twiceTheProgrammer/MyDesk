@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Security.AccessControl;
 using static Win32;
 
 class Program
@@ -55,23 +56,53 @@ class Program
 			IntPtr.Zero
 		);
 
+		IntPtr hTitle = CreateWindowEx(
+			0, "STATIC", "Task Management",
+			WS_CHILD | WS_VISIBLE | SS_CENTER,
+			20, 0, 340, 20,
+			hWnd, 
+			(IntPtr)5,
+			IntPtr.Zero,
+			IntPtr.Zero
+		);
+
+		IntPtr hTaskInput = CreateWindowEx(
+			0, "EDIT", "",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT,
+			20, 25, 250, 25,
+			hWnd,
+			(IntPtr)1, // control id 
+			IntPtr.Zero,
+			IntPtr.Zero
+		);
+
 		IntPtr hAddTaskButton = CreateWindowEx(
 			0, "BUTTON", "Add",
 			WS_CHILD | WS_VISIBLE,
-			280, 20, 80, 25,
+			280, 25, 80, 25,
 			hWnd,
 			(IntPtr)2,
 			IntPtr.Zero,
 			IntPtr.Zero
 		);
 
-		// Child controls 
-		IntPtr hTaskInput = CreateWindowEx(
-			0, "EDIT", "",
-			WS_CHILD | WS_VISIBLE | WS_BORDER,
-			20, 20, 250, 25,
+		IntPtr hTaskList = CreateWindowEx(
+			0, "LISTBOX", "",
+			WS_CHILD | WS_VISIBLE | WS_BORDER | LBS_NOTIFY,
+			20, 60, 340, 200,
 			hWnd,
-			(IntPtr)1, // control id 
+			(IntPtr)4,
+			IntPtr.Zero,
+			IntPtr.Zero
+		);
+
+		IntPtr hDeleteButton = CreateWindowEx(
+			0,
+			"BUTTON", "Delete",
+			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			20, 270, 340, 30,
+			hWnd,
+			(IntPtr)3,
 			IntPtr.Zero,
 			IntPtr.Zero
 		);

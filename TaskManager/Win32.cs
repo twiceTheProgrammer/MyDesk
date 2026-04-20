@@ -3,12 +3,50 @@ using System.Runtime.InteropServices;
 
 public static class Win32
 {
+	#region Window styles
 	public const int WS_CHILD = 0X40000000;
 	public const int WS_VISIBLE = 0x10000000;
 	public const int WS_BORDER = 0x00800000;
 	public const int WS_OVERLAPPED = 0x00000000;
-
 	public const int WS_OVERLAPPEDWINDOW = 0x00CF0000;
+	#endregion
+
+	#region  Edit Control styles
+	public const int ES_LEFT = 0x0000;
+	public const int ES_CENTER = 0x0001;
+	public const int ES_RIGHT = 0x0002;
+	public const int ES_MULTILINE = 0x0004;
+	public const int ES_AUTOVSCROLL = 0x0040;
+	public const int ES_AUTOHSCROLL = 0x0080;
+	#endregion
+
+	#region Button styles
+	public const int BS_PUSHBUTTON = 0x00000000;
+	public const int BS_DEFPUSHBUTTON = 0x00000001;
+	public const int BS_CENTER = 0x00000300;
+	public const int BS_FLAT = 0x00008000;
+	#endregion
+
+	#region List box styles
+	public const int LBS_NOTIFY = 0x0001;
+	public const int LBS_SORT = 0x0002;
+	public const int LBS_HASSTRINGS = 0x0040;
+	#endregion
+	#region Static Controls styles
+	public const int SS_LEFT = 0x00000000;
+	public const int SS_CENTER = 0x00000001;
+	public const int SS_RIGHT = 0x00000002;
+	#endregion
+	#region Window messages
+	public const int WM_COMMAND = 0x0111;
+	public const int WM_CLOSE = 0x0010;
+	public const int WM_CTLCOLORSTATIC = 0x0138;
+	public const int WM_KEYDOWN = 0x0100;
+	public const int WM_KEYUP = 0x0101;
+	public const int WM_CHAR = 0x0102;
+	public const int WM_CTLCOLORBTN = 0x0135;
+	public const int WM_SETFONT = 0x0030;
+	#endregion
 
 	[StructLayout(LayoutKind.Sequential)]
 	public struct WNDCLASS
@@ -26,7 +64,6 @@ public static class Win32
 		[MarshalAs(UnmanagedType.LPWStr)]
 		public string lpszClassName;
 	}
-
 	[StructLayout(LayoutKind.Sequential)]
 	public struct MSG
 	{
