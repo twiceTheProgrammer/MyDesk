@@ -21,6 +21,9 @@ public static class Win32
 	public const int WS_MAXIMIZEBOX = 0x00010000;
 	public const int WS_OVERLAPPEDWINDOW = WS_OVERLAPPED | WS_CAPTION| WS_THICKFRAME | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU;
 
+	// Window states
+	public const int SW_SHOWNORMAL = 1;
+	public const int SW_SHOWMAXIMIZED = 3;
 	// Buttons & styles
 	public const int BS_DEFPUSHBUTTON = 0x00000001;
 	public const int BS_FLAT = 0x00008000;
@@ -36,6 +39,7 @@ public static class Win32
 	public const int WM_CHAR = 0x0102; // character input , after translation.
 	public const int WM_CTLCOLORBTN = 0x0135;
 	public const int WM_SETFONT = 0x0030;  // FONT msg
+	public const int WM_ERASEBKGND = 0x0014;
 
 	// Background 
 	public const int TRANSPARENT = 1;
@@ -66,6 +70,20 @@ public static class Win32
 		public int pt_x;  // mouse x position
 		public int pt_y;  // mouse y position
 	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct RECT
+	{
+		public int left;
+		public int top;
+		public int right;
+		public int bottom;
+	}
+	[DllImport("user32.dll")]
+	public static extern bool GetClientRect(IntPtr hWnd, out RECT lpRect);
+
+	[DllImport("user32.dll")]
+	public static extern int FillRect(IntPtr hdc, ref RECT lprc, IntPtr hbr);
 
 	[DllImport("user32.dll", CharSet = CharSet.Unicode)]
     public static extern int MessageBox(IntPtr hWnd, string lpText, string lpCaption, uint uType);
