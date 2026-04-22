@@ -28,6 +28,8 @@ public static class Win32
 	public const int BS_DEFPUSHBUTTON = 0x00000001;
 	public const int BS_FLAT = 0x00008000;
 	public const int BS_CENTER = 0x00000300;
+	public const int BS_LEFT = 0x0100;
+	public const int BS_RIGHT = 0x0200;
 	public const int SS_CENTER = 0x00000001;
 	public const int SS_LEFT = 0x00000000;
 	// Messages

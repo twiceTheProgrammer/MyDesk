@@ -1,58 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using static Win32;
-
+using static Controls;
+using static WindowProcedure;
 class Program
 {
-	static IntPtr hContentPanel;
-	static IntPtr hContentLabel;
-
-	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
-
-	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
-	{
-		switch (msg)
-		{
-			case WM_COMMAND:
-			{
-				int controlId = wParam.ToInt32() & 0xFFFF;
-				// Module buttons start at 2000
-				if (controlId >= 2000 && controlId < 2100)
-				{
-					SetWindowText(hContentLabel, $"Module: {controlId - 2000}");
-				}
-				// Toolbar buttons start at 3000
-				else if (controlId >= 3000 && controlId < 3100)
-				{
-					SetWindowText(hContentLabel, $"Toolbar: {controlId - 3000}");
-				}
-				break;
-			}
-			case WM_CTLCOLORBTN:
-			case WM_CTLCOLORSTATIC:
-			{
-				IntPtr hdc = wParam;
-				SetBkMode(hdc, OPAQUE);
-				return CreateSolidBrush(0x00303040); // unify controls with dark background
-			}
-			case WM_ERASEBKGND:
-			{
-				IntPtr hdc = wParam;
-				IntPtr hBrush = CreateSolidBrush(0x005D4A3B); // #3b4a5d
-				RECT rect;
-				GetClientRect(hWnd, out rect);
-				FillRect(hdc, ref rect, hBrush);
-				return 1;
-			}
-			case WM_CLOSE:
-			{
-				Environment.Exit(0);
-				break;
-			}
-		}
-		return DefWindowProc(hWnd, msg, wParam, lParam);
-	}
-
 	static void Main()
 	{
 		string className = "MyDesk";
@@ -87,84 +39,65 @@ class Program
 			"Segoe UI"
 		);
 
-		// === Module Bar ===
+		IntPtr hCandyButton = CreateWindowEx(
+			0, "BUTTON", "Candy",
+			WS_CHILD | WS_VISIBLE | BS_FLAT, 
+			0, 1, 121, 30,
+			hWnd,
+			(IntPtr)(2100),
+			IntPtr.Zero,
+			IntPtr.Zero
+		);
+
 		string[] modules = {
 			"Estimating", "Planning", "Link & Forecast", "Cashflow",
 			"Valuations", "Subcontract Manager", "Cost & Allowables",
 			"Materials Received", "Drawings"
 		};
 
-		int x = 10;
-		for (int i = 0; i < modules.Length; i++)
+		int x = 121;
+		
+		for (int i = 1; i < modules.Length; i++)
 		{
-			IntPtr hBtn = CreateWindowEx(
-				0, "BUTTON", modules[i],
-				WS_CHILD | WS_VISIBLE | BS_FLAT | BS_CENTER,
-				x, 40, 120, 30,
-				hWnd,
-				(IntPtr)(2000 + i),
-				IntPtr.Zero,
-				IntPtr.Zero
-			);
-			SendMessage(hBtn, WM_SETFONT, hFont, (IntPtr)1);
-			x += 125;
+			IntPtr hBtn = Controls.CreateModuleButton(hWnd, modules[i],(2000 + i), x, 1, 140, 30, hFont);
+			x += 140;
 		}
 
-		// === Toolbar Row ===
-		string[] toolbar = { "Main", "Documents", "Reports", "Advanced", "Housekeeping" };
-		x = 10;
-		for (int i = 0; i < toolbar.Length; i++)
+		ShowWindow(hWnd, SW_SHOWMAXIMIZED); // Start App in Maximized state.
+		UpdateWindow(hWnd);
+
+		RECT rect;
+		GetClientRect(hWnd, out rect);
+
+		int clientWidth = rect.right - rect.left;
+		int clientHeiht = rect.bottom - rect.top;
+
+		IntPtr hToolbarPanel = CreateWindowEx(
+			0, "STATIC", "",
+			WS_CHILD | WS_VISIBLE,
+			0, 28, clientWidth, 100,
+			hWnd,
+			(IntPtr)34,
+			IntPtr.Zero,
+			IntPtr.Zero
+		);
+
+		string[] toolbar = { "Main", "Documents", "Reports", "Advanced", "Housekeeping"};
+		int posX  = 5;
+		for(int i = 0; i < toolbar.Length; i++)
 		{
-			IntPtr hBtn = CreateWindowEx(
+			IntPtr hButton = CreateWindowEx(
 				0, "BUTTON", toolbar[i],
-				WS_CHILD | WS_VISIBLE | BS_FLAT | BS_CENTER,
-				x, 80, 100, 25,
+				WS_CHILD | WS_VISIBLE | BS_FLAT,
+				posX, 32, 115, 20,
 				hWnd,
 				(IntPtr)(3000 + i),
 				IntPtr.Zero,
 				IntPtr.Zero
 			);
-			SendMessage(hBtn, WM_SETFONT, hFont, (IntPtr)1);
-			x += 105;
+			SendMessage(hButton, WM_SETFONT, hFont, (IntPtr)1);
+			posX += 116;
 		}
-
-		// === Content Panel ===
-		hContentPanel = CreateWindowEx(
-			0, "STATIC", "",
-			WS_CHILD | WS_VISIBLE | WS_BORDER,
-			10, 120, 960, 680,
-			hWnd,
-			(IntPtr)800,
-			IntPtr.Zero,
-			IntPtr.Zero
-		);
-
-		hContentLabel = CreateWindowEx(
-			0, "STATIC", "Content Area",
-			WS_CHILD | WS_VISIBLE | SS_CENTER,
-			20, 20, 920, 30,
-			hContentPanel,
-			(IntPtr)801,
-			IntPtr.Zero,
-			IntPtr.Zero
-		);
-		SendMessage(hContentLabel, WM_SETFONT, hFont, (IntPtr)1);
-
-		// === Footer/Status ===
-		IntPtr hFooter = CreateWindowEx(
-			0, "STATIC", "Dev-folder = C:\\Demo-Main",
-			WS_CHILD | WS_VISIBLE | SS_LEFT,
-			10, 820, 400, 30,
-			hWnd,
-			(IntPtr)950,
-			IntPtr.Zero,
-			IntPtr.Zero
-		);
-		SendMessage(hFooter, WM_SETFONT, hFont, (IntPtr)1);
-
-		ShowWindow(hWnd, SW_SHOWMAXIMIZED); // Start App in Maximized state.
-		UpdateWindow(hWnd);
-
 		// Message loop
 		MSG msg;
 		while (GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
