@@ -18,36 +18,10 @@ class Program
 		};
 		RegisterClass(ref wc);
 
-		IntPtr hWnd = CreateWindowEx(
-			0,
-			className,
-			"MyDesk",
-			WS_OVERLAPPEDWINDOW | WS_CAPTION,
-			100, 100, 1000, 900,
-			IntPtr.Zero,
-			IntPtr.Zero,
-			hInstance,
-			IntPtr.Zero
-		);
+		var AppWnd = new MainWindow(className, "MyDesk", hInstance);
 
-		// Font
-		IntPtr hFont = CreateFont(
-			18, 0, 0, 0, FW_NORMAL,
-			0, 0, 0, DEFAULT_CHARSET,
-			OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-			DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
-			"Segoe UI"
-		);
-
-		IntPtr hCandyButton = CreateWindowEx(
-			0, "BUTTON", "Candy",
-			WS_CHILD | WS_VISIBLE | BS_FLAT, 
-			0, 1, 121, 30,
-			hWnd,
-			(IntPtr)(2100),
-			IntPtr.Zero,
-			IntPtr.Zero
-		);
+		IntPtr hFont = FPTR_CreateFont();
+		IntPtr hCandyButton = CreateModuleButton(AppWnd.Handle, "Candy", 2100, 0, 1, 121, 30, hFont);
 
 		string[] modules = {
 			"Estimating", "Planning", "Link & Forecast", "Cashflow",
@@ -59,15 +33,14 @@ class Program
 		
 		for (int i = 1; i < modules.Length; i++)
 		{
-			IntPtr hBtn = Controls.CreateModuleButton(hWnd, modules[i],(2000 + i), x, 1, 140, 30, hFont);
+			IntPtr hBtn = Controls.CreateModuleButton(AppWnd.Handle, modules[i],(2000 + i), x, 1, 140, 30, hFont);
 			x += 140;
 		}
 
-		ShowWindow(hWnd, SW_SHOWMAXIMIZED); // Start App in Maximized state.
-		UpdateWindow(hWnd);
+		AppWnd.Show();
 
 		RECT rect;
-		GetClientRect(hWnd, out rect);
+		GetClientRect(AppWnd.Handle, out rect);
 
 		int clientWidth = rect.right - rect.left;
 		int clientHeiht = rect.bottom - rect.top;
@@ -76,7 +49,7 @@ class Program
 			0, "STATIC", "",
 			WS_CHILD | WS_VISIBLE,
 			0, 28, clientWidth, 100,
-			hWnd,
+			AppWnd.Handle,
 			(IntPtr)34,
 			IntPtr.Zero,
 			IntPtr.Zero
@@ -86,19 +59,10 @@ class Program
 		int posX  = 5;
 		for(int i = 0; i < toolbar.Length; i++)
 		{
-			IntPtr hButton = CreateWindowEx(
-				0, "BUTTON", toolbar[i],
-				WS_CHILD | WS_VISIBLE | BS_FLAT,
-				posX, 32, 115, 20,
-				hWnd,
-				(IntPtr)(3000 + i),
-				IntPtr.Zero,
-				IntPtr.Zero
-			);
-			SendMessage(hButton, WM_SETFONT, hFont, (IntPtr)1);
+			IntPtr hButton = Controls.CreateToolbarButton(AppWnd.Handle, toolbar[i], (3000 + i), posX, 32, 115, 20, hFont);
 			posX += 116;
 		}
-		// Message loop
+
 		MSG msg;
 		while (GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
 		{

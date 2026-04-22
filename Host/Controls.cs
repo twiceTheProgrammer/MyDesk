@@ -3,6 +3,7 @@ using static Win32;
 
 public static class Controls
 {
+
 	public static IntPtr CreateModuleButton(IntPtr hWnd ,string text, int id,int x, int y, int width, int height, IntPtr hFont)
 	{	
 		IntPtr hBtn = CreateWindowEx(
@@ -35,4 +36,14 @@ public static class Controls
 		return hBtn;
 	}
 
+	public static IntPtr FPTR_CreateFont()
+	{
+		return CreateFont(
+			18, 0, 0, 0, FW_NORMAL,
+			0, 0, 0, DEFAULT_CHARSET,
+			OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+			DEFAULT_QUALITY, DEFAULT_PITCH | FF_SWISS,
+			"Segoe UI"
+		);
+	}
 }
