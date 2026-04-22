@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static Win32;
+using Win32.Interop;
 using Calculator.API;
 
 class Program
@@ -11,9 +11,9 @@ class Program
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
-		switch (msg)
+		switch ((WindowMsg) msg)
 		{
-			case WM_COMMAND:
+			case WindowMsg.Command:
 			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
 
@@ -23,7 +23,7 @@ class Program
 					case 2:
 					{
 						state.Reset();
-						SetWindowText(hResult, "");
+						User32.SetWindowText(hResult, "");
 						break;
 					}
 					case 3:
@@ -31,61 +31,61 @@ class Program
 						if(state.CurrentInput.Length > 0)
 						{
 							state.CurrentInput = state.CurrentInput.Substring(0, state.CurrentInput.Length - 1);
-							SetWindowText(hResult, state.CurrentInput);
+							User32.SetWindowText(hResult, state.CurrentInput);
 						}
 						break;
 					}
-					case 4:  engine.SetOperator("/"); SetWindowText(hResult, $"{state.LeftOperand} /"); break;
-					case 5:  engine.AppendDigit("1"); SetWindowText(hResult, state.CurrentInput); break;
-					case 6:  engine.AppendDigit("2"); SetWindowText(hResult, state.CurrentInput); break;
-					case 7:  engine.AppendDigit("3"); SetWindowText(hResult, state.CurrentInput); break;
+					case 4:  engine.SetOperator("/"); User32.SetWindowText(hResult, $"{state.LeftOperand} /"); break;
+					case 5:  engine.AppendDigit("1"); User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 6:  engine.AppendDigit("2"); User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 7:  engine.AppendDigit("3"); User32.SetWindowText(hResult, state.CurrentInput); break;
 
-					case 8:	 engine.SetOperator("*"); SetWindowText(hResult, $"{state.LeftOperand} x"); break;
-					case 9:  engine.AppendDigit("4"); SetWindowText(hResult, state.CurrentInput); break;
-					case 10: engine.AppendDigit("5"); SetWindowText(hResult, state.CurrentInput); break;
-					case 11: engine.AppendDigit("6"); SetWindowText(hResult, state.CurrentInput); break;
+					case 8:	 engine.SetOperator("*"); User32.SetWindowText(hResult, $"{state.LeftOperand} x"); break;
+					case 9:  engine.AppendDigit("4"); User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 10: engine.AppendDigit("5"); User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 11: engine.AppendDigit("6"); User32.SetWindowText(hResult, state.CurrentInput); break;
 
-					case 12: engine.SetOperator("+"); SetWindowText(hResult, $"{state.LeftOperand} +"); break;
-					case 13: engine.AppendDigit("7"); SetWindowText(hResult, state.CurrentInput); break;
-					case 14: engine.AppendDigit("8"); SetWindowText(hResult, state.CurrentInput); break;
-					case 15: engine.AppendDigit("9"); SetWindowText(hResult, state.CurrentInput); break;
+					case 12: engine.SetOperator("+"); User32.SetWindowText(hResult, $"{state.LeftOperand} +"); break;
+					case 13: engine.AppendDigit("7"); User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 14: engine.AppendDigit("8"); User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 15: engine.AppendDigit("9"); User32.SetWindowText(hResult, state.CurrentInput); break;
 					
-					case 16: engine.SetOperator("-"); SetWindowText(hResult, $"{state.LeftOperand} -"); break;
-					case 17: engine.AppendDecimal();  SetWindowText(hResult, state.CurrentInput); break;
-					case 18: engine.AppendDigit("0"); SetWindowText(hResult, state.CurrentInput); break;
+					case 16: engine.SetOperator("-"); User32.SetWindowText(hResult, $"{state.LeftOperand} -"); break;
+					case 17: engine.AppendDecimal();  User32.SetWindowText(hResult, state.CurrentInput); break;
+					case 18: engine.AppendDigit("0"); User32.SetWindowText(hResult, state.CurrentInput); break;
 					case 19:
 					{
 						if (double.TryParse(state.CurrentInput, out double rightOperand))
 						{
 							string output = engine.Evaluate(rightOperand);
-							SetWindowText(hResult, output);
+							User32.SetWindowText(hResult, output);
 						}
 						break;
 					}
 				}
 				break;
 			} 
-			case WM_CTLCOLORSTATIC:
+			case WindowMsg.CtlColorStatic:
 			{
 				IntPtr hdc = wParam;   // handle device context
-				SetTextColor(hdc, 0x00FFFFFF);  // white text.
-				SetBkMode(hdc, 1);     // transparent background.
-				return CreateSolidBrush(0x00463414);
+				Gdi32.SetTextColor(hdc, 0x00FFFFFF);  // white text.
+				Gdi32.SetBkMode(hdc, 1);     // transparent background.
+				return Gdi32.CreateSolidBrush(0x00463414);
 			}
-			case WM_CTLCOLORBTN:
+			case WindowMsg.CtlColorBtn:
 			{
 				IntPtr hdc = wParam; 
-				SetTextColor(hdc, 0x00000000);
-				SetBkMode(hdc, 1);
-				return CreateSolidBrush(0x00FFFFFF);
+				Gdi32.SetTextColor(hdc, 0x00000000);
+				Gdi32.SetBkMode(hdc, 1);
+				return Gdi32.CreateSolidBrush(0x00FFFFFF);
 			}
-			case WM_CLOSE:
+			case WindowMsg.Close:
 			{
 				Environment.Exit(0);
 				break;
 			} 
 		}
-		return DefWindowProc(hWnd, msg, wParam, lParam);  // Default behavior.
+		return User32.DefWindowProc(hWnd, msg, wParam, lParam);  // Default behavior.
 	}
 
 	static void Main()
@@ -98,14 +98,14 @@ class Program
 			lpfnWndProc = Marshal.GetFunctionPointerForDelegate(new WndProcDelegate(WndProc)),
 			lpszClassName = className
 		};
-		RegisterClass(ref wc);
+		User32.RegisterClass(ref wc);
 
 		// Create main window
-		IntPtr hWnd = CreateWindowEx(
+		IntPtr hWnd = User32.CreateWindowEx(
 			0,
 			className,
 			"Calculator",
-			WS_OVERLAPPEDWINDOW,
+			(uint) (WindowStyles.OverlappedWindow ),
 			100, 100, 400, 400,
 			IntPtr.Zero,
 			IntPtr.Zero,
@@ -139,15 +139,15 @@ class Program
 		IntPtr hbuttonZero   = Controls.CreateButton(hWnd, 18, "0", 110, 265, 80, 40);
 		IntPtr hbuttonEqual  = Controls.CreateButton(hWnd, 19, "=", 195, 265, 165, 40);
 		
-		ShowWindow(hWnd, 1);
-		UpdateWindow(hWnd);
+		User32.ShowWindow(hWnd, 1);
+		User32.UpdateWindow(hWnd);
 
 		// Message loop
 		MSG msg;
-		while (GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
+		while (User32.GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
 		{
-			TranslateMessage(ref msg);
-			DispatchMessage(ref msg);
+			User32.TranslateMessage(ref msg);
+			User32.DispatchMessage(ref msg);
 		}
 	}
 }
