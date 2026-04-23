@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using static Win32;
+using Win32.Interop;
 using static Controls;
 using static WindowProcedure;
+
 class Program
 {
 	static void Main()
 	{
 		string className = "MyDesk";
-		IntPtr hInstance = GetModuleHandle(null);
+		IntPtr hInstance = Kernel32.GetModuleHandle(null);
 
 		WNDCLASS wc = new WNDCLASS
 		{
@@ -16,7 +17,7 @@ class Program
 			lpszClassName = className,
 			hInstance = hInstance
 		};
-		RegisterClass(ref wc);
+		User32.RegisterClass(ref wc);
 
 		var AppWnd = new MainWindow(className, "MyDesk", hInstance);
 
@@ -40,14 +41,14 @@ class Program
 		AppWnd.Show();
 
 		RECT rect;
-		GetClientRect(AppWnd.Handle, out rect);
+		User32.GetClientRect(AppWnd.Handle, out rect);
 
 		int clientWidth = rect.right - rect.left;
 		int clientHeiht = rect.bottom - rect.top;
 
-		IntPtr hToolbarPanel = CreateWindowEx(
+		IntPtr hToolbarPanel = User32.CreateWindowEx(
 			0, "STATIC", "",
-			WS_CHILD | WS_VISIBLE,
+			(uint) (WindowStyles.Child | WindowStyles.Visible),
 			0, 28, clientWidth, 100,
 			AppWnd.Handle,
 			(IntPtr)34,
@@ -64,10 +65,10 @@ class Program
 		}
 
 		MSG msg;
-		while (GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
+		while (User32.GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
 		{
-			TranslateMessage(ref msg);
-			DispatchMessage(ref msg);
+			User32.TranslateMessage(ref msg);
+			User32.DispatchMessage(ref msg);
 		}
 	}
 }

@@ -1,6 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using static Win32;
+using Win32.Interop;
 
 public static class WindowProcedure
 {
@@ -8,9 +8,9 @@ public static class WindowProcedure
 
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
-		switch(msg)
+		switch((WindowMsg) msg)
 		{
-			case WM_COMMAND:
+			case WindowMsg.Command:
 			{
 				int controlId = wParam.ToInt32() & 0xFFFF;
 				// Module buttons start at 2000
@@ -25,35 +25,35 @@ public static class WindowProcedure
 				// }
 				break;	
 			}
-			case WM_CTLCOLORSTATIC:
+			case WindowMsg.CtlColorStatic:
 			{
 				IntPtr hdc = wParam;   // handle device context
-				SetTextColor(hdc, 0x00FFFFFF);  // white text.
-				SetBkMode(hdc, 1);     // transparent background.
-				return CreateSolidBrush(0x00D8D8D8);
+				Gdi32.SetTextColor(hdc, 0x00FFFFFF);  // white text.
+				Gdi32.SetBkMode(hdc, 1);     // transparent background.
+				return Gdi32.CreateSolidBrush(0x00D8D8D8);
 			}
-			case WM_CTLCOLORBTN:
+			case WindowMsg.CtlColorBtn:
 			{
 				IntPtr hdc = wParam; 
-				SetTextColor(hdc, 0x00000000);
-				SetBkMode(hdc, 1);
-				return CreateSolidBrush(0x00D8D8D8);
+				Gdi32.SetTextColor(hdc, 0x00000000);
+				Gdi32.SetBkMode(hdc, 1);
+				return Gdi32.CreateSolidBrush(0x00D8D8D8);
 			}
-			case WM_ERASEBKGND:
+			case WindowMsg.EraseBackground:
 			{
 				IntPtr hdc = wParam;
-				IntPtr hBrush = CreateSolidBrush(0x005D4A3B); // #3b4a5d
+				IntPtr hBrush = Gdi32.CreateSolidBrush(0x005D4A3B); // #3b4a5d
 				RECT rect;
-				GetClientRect(hWnd, out rect);
-				FillRect(hdc, ref rect, hBrush);
+				User32.GetClientRect(hWnd, out rect);
+				User32.FillRect(hdc, ref rect, hBrush);
 				return  (IntPtr)1;
 			}
-			case WM_CLOSE:
+			case WindowMsg.Close:
 			{
 				Environment.Exit(0);
 				break;	
 			}
 		}
-		return DefWindowProc(hWnd, msg, wParam, lParam);
+		return User32.DefWindowProc(hWnd, msg, wParam, lParam);
 	}
 }

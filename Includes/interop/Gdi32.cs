@@ -14,7 +14,7 @@ namespace Win32.Interop
 		[DllImport("gdi32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr CreateFont(
 					int nHeight, int nWidth, int nEscapement, int nOrientation,
-					int fnWeight, uint fdwItalic, uint fdwUnderline, uint fdwStrikeOut,
+					uint fnWeight, uint fdwItalic, uint fdwUnderline, uint fdwStrikeOut,
 					uint fdwCharSet, uint fdwOutputPrecision, uint fdwClipPrecision,
 					uint fdwQuality, uint fdwPitchAndFamily, string lpszFace);
 	}

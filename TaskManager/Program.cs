@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using System.Security.AccessControl;
-using static Win32;
+using Win32.Interop;
 
 class Program
 {
@@ -10,9 +9,9 @@ class Program
 	public delegate IntPtr WndProcDelegate(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 	public static IntPtr WndProc(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam)
 	{
-		switch(msg)
+		switch((WindowMsg) msg)
 		{
-			case WM_COMMAND: 
+			case WindowMsg.Command: 
 			{
 				int controlId = wParam.ToInt32() & 0xffff;
 				switch(controlId)
@@ -20,40 +19,40 @@ class Program
 					case 2:
 					{
 						// get text length
-						int length = SendMessage(hTaskInput, WM_GETTEXTLENGTH, IntPtr.Zero, IntPtr.Zero);
+						int length = (int) User32.SendMessage(hTaskInput, (uint) WindowMsg.GetTextLength, IntPtr.Zero, IntPtr.Zero);
 						
 						if (length > 0)
 						{
 							var sb = new System.Text.StringBuilder(length + 1);
-							GetWindowText(hTaskInput, sb, sb.Capacity);
+							User32.GetWindowText(hTaskInput, sb, sb.Capacity);
 
-							SendMessage(hTaskList, LB_ADDSTRING, IntPtr.Zero, sb.ToString());
+							User32.SendMessage(hTaskList, (uint) ListBoxMsg.AddString, IntPtr.Zero, sb.ToString());
 
 							// clear list box after adding task.
-							SetWindowText(hTaskInput, "");
+							User32.SetWindowText(hTaskInput, "");
 						}
 						break;
 					} 
 					case 3:
 					{
-						int selected = SendMessage(hTaskList, LB_GETCURSEL, IntPtr.Zero, IntPtr.Zero);
+						int selected = (int) User32.SendMessage(hTaskList, (uint) ListBoxMsg.GetCurSel, IntPtr.Zero, IntPtr.Zero);
 						
 						if (selected != -1)
 						{
-							SendMessage(hTaskList, LB_DELETESTRING, (IntPtr)selected, IntPtr.Zero);
+							int res = (int) User32.SendMessage(hTaskList, (uint)ListBoxMsg.DeleteString, (IntPtr)selected, IntPtr.Zero);
 						}
 						break;
 					}
 				}
 				break;
 			}
-			case WM_CLOSE: 
+			case WindowMsg.Close: 
 			{
 				Environment.Exit(0);
 				break;	
 			}
 		}
-		return DefWindowProc(hWnd, msg, wParam, lParam);
+		return User32.DefWindowProc(hWnd, msg, wParam, lParam);
 	}
 	static void Main()
 	{
@@ -66,14 +65,14 @@ class Program
 			lpszClassName = className	
 		};
 
-		RegisterClass(ref wc);
+		User32.RegisterClass(ref wc);
 
 		// Create main window
-		IntPtr hWnd = CreateWindowEx(
+		IntPtr hWnd = User32.CreateWindowEx(
 			0,
 			className,
 			"Task Manager",
-			WS_OVERLAPPEDWINDOW,
+			(uint) WindowStyles.OverlappedWindow,
 			100, 100, 800, 800,
 			IntPtr.Zero,
 			IntPtr.Zero,
@@ -81,9 +80,9 @@ class Program
 			IntPtr.Zero
 		);
 
-		IntPtr hTitle = CreateWindowEx(
+		IntPtr hTitle = User32.CreateWindowEx(
 			0, "STATIC", "Task Management",
-			WS_CHILD | WS_VISIBLE | SS_CENTER,
+			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.StaticCenter),
 			20, 0, 340, 20,
 			hWnd, 
 			(IntPtr)5,
@@ -91,9 +90,9 @@ class Program
 			IntPtr.Zero
 		);
 
-		hTaskInput = CreateWindowEx(
+		hTaskInput = User32.CreateWindowEx(
 			0, "EDIT", "",
-			WS_CHILD | WS_VISIBLE | WS_BORDER | ES_LEFT,
+			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.Border),
 			20, 25, 250, 25,
 			hWnd,
 			(IntPtr)1, // control id 
@@ -101,9 +100,9 @@ class Program
 			IntPtr.Zero
 		);
 
-		IntPtr hAddTaskButton = CreateWindowEx(
+		IntPtr hAddTaskButton = User32.CreateWindowEx(
 			0, "BUTTON", "Add",
-			WS_CHILD | WS_VISIBLE,
+			(uint) (WindowStyles.Child | WindowStyles.Visible),
 			280, 25, 80, 25,
 			hWnd,
 			(IntPtr)2,
@@ -111,9 +110,9 @@ class Program
 			IntPtr.Zero
 		);
 
-		hTaskList = CreateWindowEx(
+		hTaskList = User32.CreateWindowEx(
 			0, "LISTBOX", "",
-			WS_CHILD | WS_VISIBLE | WS_BORDER | LBS_NOTIFY,
+			(uint) ((WindowStyles.Child | WindowStyles.Visible | WindowStyles.Border | WindowStyles.Notify)),
 			20, 60, 340, 200,
 			hWnd,
 			(IntPtr)4,
@@ -121,10 +120,10 @@ class Program
 			IntPtr.Zero
 		);
 
-		IntPtr hDeleteButton = CreateWindowEx(
+		IntPtr hDeleteButton = User32.CreateWindowEx(
 			0,
 			"BUTTON", "Delete",
-			WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON,
+			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.DefPushButton),
 			20, 270, 340, 30,
 			hWnd,
 			(IntPtr)3,
@@ -132,15 +131,15 @@ class Program
 			IntPtr.Zero
 		);
 
-		ShowWindow(hWnd, 1);
-		UpdateWindow(hWnd);
+		User32.ShowWindow(hWnd, 1);
+		User32.UpdateWindow(hWnd);
 
 		// Message loop
 		MSG msg;
-		while(GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
+		while(User32.GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
 		{
-			TranslateMessage(ref msg);
-			DispatchMessage(ref msg);
+			User32.TranslateMessage(ref msg);
+			User32.DispatchMessage(ref msg);
 		}
 	}
 }

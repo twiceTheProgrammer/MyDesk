@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Win32.Interop
 {
@@ -41,8 +42,12 @@ namespace Win32.Interop
 		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern bool SetWindowText(IntPtr hWnd, string lpString);
 		[DllImport("user32.dll")]
-		public static extern int GetClientRec(IntPtr hWnd, out RECT lpRect);
-		[DllImport("user32.dll")]
+		public static extern int GetClientRect(IntPtr hWnd, out RECT lpRect);
+		[DllImport("gdi32.dll")]
 		public static extern int FillRect(IntPtr hdc, ref RECT lprc, IntPtr hbr);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, string lParam);
 	}
 }

@@ -1,16 +1,16 @@
 using System;
-using static Win32;
+using Win32.Interop;
 
 public class MainWindow
 {
 	public IntPtr Handle { get; private set; }
 	public MainWindow(string className, string title, IntPtr hInstance)
 	{
-		Handle = CreateWindowEx(
+		Handle = User32.CreateWindowEx(
 			0,
 			className,
 			title,
-			WS_OVERLAPPEDWINDOW | WS_CAPTION,
+			(uint) (WindowStyles.OverlappedWindow | WindowStyles.Caption),
 			100, 100, 1000, 900,
 			IntPtr.Zero,
 			IntPtr.Zero,
@@ -21,7 +21,7 @@ public class MainWindow
 
 	public void Show()
 	{
-		ShowWindow(Handle, SW_SHOWMAXIMIZED);
-		UpdateWindow(Handle);
+		User32.ShowWindow(Handle, (int)ShowWindowCommands.Maximized);
+		User32.UpdateWindow(Handle);
 	}
 }
