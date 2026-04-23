@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-
 namespace Win32.Interop
 {
 	[StructLayout(LayoutKind.Sequential)]
@@ -12,9 +11,8 @@ namespace Win32.Interop
 		public IntPtr lParam;  // more info (like mouse position, control handle)
 		public uint time;   // timestamp
 		public int pt_x;  // mouse x position
-		public int pt_y;  // mouse y position		
+		public int pt_y;  // mouse y position
 	}
-
 	[StructLayout(LayoutKind.Sequential)]
 	public struct RECT
 	{
