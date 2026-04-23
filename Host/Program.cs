@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Win32.Interop;
-using static Controls;
 using static WindowProcedure;
 
 class Program
@@ -21,8 +20,8 @@ class Program
 
 		var AppWnd = new MainWindow(className, "MyDesk", hInstance);
 
-		IntPtr hFont = FPTR_CreateFont();
-		IntPtr hCandyButton = CreateModuleButton(AppWnd.Handle, "Candy", 2100, 0, 1, 121, 30, hFont);
+		IntPtr hFont = Controls.FPTR_CreateFont();
+		IntPtr hCandyButton = Controls.CreateModuleButton(AppWnd.Handle, "Candy", 2100, 0, 1, 121, 30, hFont);
 
 		string[] modules = {
 			"Estimating", "Planning", "Link & Forecast", "Cashflow",
