@@ -8,7 +8,7 @@ public static class Controls
 		IntPtr hBtn = User32.CreateWindowEx(
 			0, "BUTTON", text,
 			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.Flat | WindowStyles.Center),
-			x, y, 140, 30,
+			x, y, width, height,
 			hWnd,
 			(IntPtr)id,
 			IntPtr.Zero,
@@ -23,7 +23,7 @@ public static class Controls
 		IntPtr hBtn = User32.CreateWindowEx(
 			0, "BUTTON", text,
 			(uint)(WindowStyles.Child | WindowStyles.Visible | WindowStyles.Flat),
-			x, y, 115, 20,
+			x, y, width, height,
 			hWnd,
 			(IntPtr)id,
 			IntPtr.Zero,

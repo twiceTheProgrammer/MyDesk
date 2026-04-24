@@ -38,16 +38,20 @@ class Program
 
 		IntPtr hFont = Controls.FPTR_CreateFont();
 
-		IntPtr hCandyButton        = Controls.CreateModuleButton(hWnd, "Candy",              1,  0, 0, 20, 20, hFont);
-		IntPtr hEstButton          = Controls.CreateModuleButton(hWnd, "Estimating",         2,  141, 0, 60, 20, hFont);
-		IntPtr hPlanningButton     = Controls.CreateModuleButton(hWnd, "Planning",           3 , 282, 0, 80, 20, hFont);
-		IntPtr hLinkForecastButton = Controls.CreateModuleButton(hWnd, "Link And Forecast",  5,  423, 0, 80, 30, hFont);
-		IntPtr hCashFlowButton     = Controls.CreateModuleButton(hWnd, "Cashflow",           6,  564, 0, 80, 30, hFont);
-		IntPtr hValuationsButton   = Controls.CreateModuleButton(hWnd, "Valuations",         7,  705, 0, 80, 30, hFont);
-		IntPtr hSubCntMngButton    = Controls.CreateModuleButton(hWnd, "Subcontract Manager",8,  846, 0, 80, 30, hFont);
-		IntPtr hCostAllowableButton= Controls.CreateModuleButton(hWnd, "Cost And Allowables",9,  987, 0, 80, 30, hFont);
-		IntPtr hMaterialsReceivedButton = Controls.CreateModuleButton(hWnd, "Materials Received", 10, 1128, 0, 80, 30, hFont);
-		IntPtr hDrawingsButton = Controls.CreateModuleButton(hWnd, "Drawings",           11, 1269, 0, 80, 30, hFont);
+		IntPtr hCandyButton             = Controls.CreateModuleButton(hWnd, "Candy",              1,  0,   0, 80, 24,  hFont);
+		IntPtr hEstButton               = Controls.CreateModuleButton(hWnd, "Estimating",         2,  80,  0, 110, 24, hFont);
+		IntPtr hPlanningButton          = Controls.CreateModuleButton(hWnd, "Planning",           3,  190, 0, 110, 24, hFont);
+		IntPtr hLinkForecastButton      = Controls.CreateModuleButton(hWnd, "Link And Forecast",  5,  300, 0, 125, 24, hFont);
+		IntPtr hCashFlowButton          = Controls.CreateModuleButton(hWnd, "Cashflow",           6,  425, 0, 100, 24, hFont);
+		IntPtr hValuationsButton        = Controls.CreateModuleButton(hWnd, "Valuations",         7,  525, 0, 100, 24, hFont);
+		IntPtr hSubCntMngButton         = Controls.CreateModuleButton(hWnd, "Subcontract Manager",8,  625, 0, 145, 24, hFont);
+		IntPtr hCostAllowableButton     = Controls.CreateModuleButton(hWnd, "Cost And Allowables",9,  770, 0, 150, 24, hFont);
+		IntPtr hMaterialsReceivedButton = Controls.CreateModuleButton(hWnd, "Materials Received", 10, 920, 0, 150, 24, hFont);
+		IntPtr hDrawingsButton          = Controls.CreateModuleButton(hWnd, "Drawings",           11, 1070, 0,110, 24, hFont);
+
+		// Toolbar
+		// IntPtr hToolBarSection 
+
 		// Run Message loop
 		MSG msg;
 		while(User32.GetMessage(out msg, IntPtr.Zero, 0, 0) != 0)
