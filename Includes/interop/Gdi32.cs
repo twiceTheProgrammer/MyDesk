@@ -6,6 +6,8 @@ namespace Win32.Interop
 	public static class Gdi32
 	{
 		[DllImport("gdi32.dll")]
+		public static extern int FillRect(IntPtr hdc, ref RECT lprc, IntPtr hbr);
+		[DllImport("gdi32.dll")]
 		public static extern IntPtr CreateSolidBrush(int color);
 		[DllImport("gdi32.dll")]
 		public static extern IntPtr SetTextColor(IntPtr hdc, int color);

@@ -53,11 +53,13 @@ namespace Win32.Interop
 		);
 		[DllImport("user32.dll")]
 		public static extern int GetClientRect(IntPtr hWnd, out RECT lpRect);
-		[DllImport("gdi32.dll")]
-		public static extern int FillRect(IntPtr hdc, ref RECT lprc, IntPtr hbr);
 		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, IntPtr lParam);
 		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, string lParam);
+		[DllImport("user32.dll")]
+		public static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursroName);
+		[DllImport("user32.dll")]
+		public static extern IntPtr SetCursor(IntPtr hCursor);
 	}
 }

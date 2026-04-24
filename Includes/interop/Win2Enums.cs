@@ -70,7 +70,6 @@ namespace Win32.Interop
 		WantKeyboardInput = 0x0400,
 		NoData = 0x2000
 	}
-
 	public enum FontWeight : uint
 	{
 		Normal = 400,
@@ -109,7 +108,6 @@ namespace Win32.Interop
 		ScreenOutline = 9,
 		PSOnly = 10
 	}
-
 	public enum ClipPrecision : uint
 	{
 		Default = 0,
@@ -117,7 +115,6 @@ namespace Win32.Interop
 		Stroke = 2,
 		Mask = 15
 	}
-
 	public enum Quality : uint
 	{
 		Default = 0,
@@ -142,5 +139,11 @@ namespace Win32.Interop
 		Modern = 3 << 4,
 		Script = 4 << 4,
 		Decorative = 5 << 4
+	}
+
+	// cursor 
+	public enum IDC : int
+	{
+		Arrow = 32512
 	}
 }
