@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "Calculator\Ca
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManager", "TaskManager\TaskManager.csproj", "{6D77F745-FF59-4561-A94D-C23284AF47D3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CandyX", "CandyX\CandyX.csproj", "{534043E1-3788-418E-9778-C9AE7344F522}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,18 @@ Global
 		{6D77F745-FF59-4561-A94D-C23284AF47D3}.Release|x64.Build.0 = Release|Any CPU
 		{6D77F745-FF59-4561-A94D-C23284AF47D3}.Release|x86.ActiveCfg = Release|Any CPU
 		{6D77F745-FF59-4561-A94D-C23284AF47D3}.Release|x86.Build.0 = Release|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Debug|x64.Build.0 = Debug|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Debug|x86.Build.0 = Debug|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Release|x64.ActiveCfg = Release|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Release|x64.Build.0 = Release|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Release|x86.ActiveCfg = Release|Any CPU
+		{534043E1-3788-418E-9778-C9AE7344F522}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -41,6 +41,16 @@ namespace Win32.Interop
 		public static extern int GetWindowText(IntPtr hWnd, System.Text.StringBuilder lpString, int nMaxCount);
 		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern bool SetWindowText(IntPtr hWnd, string lpString);
+		[DllImport("user32.dll", SetLastError = true)]
+		public static extern bool SetWindowPos(
+			IntPtr hWnd, 
+			IntPtr hWndInsertAfter,
+			int X,
+			int Y,
+			int cx,
+			int cy,
+			SetWindowPosFlags uFlags
+		);
 		[DllImport("user32.dll")]
 		public static extern int GetClientRect(IntPtr hWnd, out RECT lpRect);
 		[DllImport("gdi32.dll")]

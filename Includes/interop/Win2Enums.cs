@@ -38,6 +38,14 @@ namespace Win32.Interop
 		Maximized = 3
 	}
 	
+	[Flags]
+	public enum SetWindowPosFlags : uint
+	{
+		NoSize = 0x0001,
+		NoMove = 0x0002,
+		NoZOrder = 0x0004,
+		ShowWindow = 0x0040
+	}
 	public enum BackgroundMode
 	{
 		Transparent = 1,
@@ -87,7 +95,6 @@ namespace Win32.Interop
 		EastEurope = 238,
 		OEM = 255
 	}
-
 	public enum OutputPrecision : uint
 	{
 		Default = 0,

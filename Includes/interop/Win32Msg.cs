@@ -8,6 +8,7 @@ namespace Win32.Interop
 		Null = 0x0000,
 		Create = 0x0001,
 		Command = 0x0111,
+		Size = 0x0005,
 		Close = 0x0010,
 		Destroy = 0x0001,
 		KeyDown = 0x0100,
