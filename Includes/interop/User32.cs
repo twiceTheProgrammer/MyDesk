@@ -61,5 +61,7 @@ namespace Win32.Interop
 		public static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursroName);
 		[DllImport("user32.dll")]
 		public static extern IntPtr SetCursor(IntPtr hCursor);
+		[DllImport("user32.dll")]
+		public static extern int FillRect(IntPtr hdc, ref RECT lprc, IntPtr hbr);
 	}
 }

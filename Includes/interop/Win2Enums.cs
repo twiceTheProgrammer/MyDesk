@@ -139,7 +139,6 @@ namespace Win32.Interop
 		Script = 4 << 4,
 		Decorative = 5 << 4
 	}
-
 	// cursor 
 	public enum IDC : int
 	{

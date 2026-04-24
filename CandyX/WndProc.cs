@@ -24,6 +24,17 @@ public static class WndProcHandler
 				// User32.SetWindowPos()
 				break;
 			}
+			case WindowMsg.EraseBackground:
+			{
+				IntPtr hdc = wParam;
+
+				IntPtr hBrush = Gdi32.CreateSolidBrush(0x005D4A3B);
+				RECT rect;
+
+				User32.GetClientRect(hWnd, out rect);
+				User32.FillRect(hdc, ref rect, hBrush);
+				return (IntPtr)1;  // handled.
+			}
 			case WindowMsg.Close:
 			{
 				Environment.Exit(0);
