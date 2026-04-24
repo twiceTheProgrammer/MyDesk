@@ -75,7 +75,6 @@ namespace Win32.Interop
 		Normal = 400,
 		Bold = 700
 	}
-
 	public enum FontCharSet : uint
 	{
 		Default = 1,
@@ -144,6 +143,18 @@ namespace Win32.Interop
 	// cursor 
 	public enum IDC : int
 	{
-		Arrow = 32512
+		Arrow = 32512,
+		IBeam = 32513, 
+		Wait = 32514,
+		Cross = 32515,
+		UpArrow = 32516,
+		SizeNWSE = 32642,
+		SizeNESW = 32643,
+		SizeWE = 32644,
+		SizeNS = 32645,
+		SizeAll = 32646,
+		No = 32648,
+		Hand = 32649,
+		Help = 32651,
 	}
 }

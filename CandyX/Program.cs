@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data;
 using System.Runtime.InteropServices;
 using Win32.Interop;
 class Program
@@ -13,7 +14,8 @@ class Program
 			lpfnWndProc = Marshal.GetFunctionPointerForDelegate(
 				new WndProcHandler.WndProcDelegate(WndProcHandler.WndProc)
 			),
-			lpszClassName = className
+			lpszClassName = className,
+			hCursor = User32.LoadCursor(IntPtr.Zero, (int)IDC.Arrow)
 		};
 		User32.RegisterClass(ref wc);
 
@@ -36,7 +38,7 @@ class Program
 
 		IntPtr hFont = Controls.FPTR_CreateFont();
 
-		IntPtr hCandyButton        = Controls.CreateModuleButton(hWnd, "Candy",              1,  0, 0, 50, 20, hFont);
+		IntPtr hCandyButton        = Controls.CreateModuleButton(hWnd, "Candy",              1,  0, 0, 20, 20, hFont);
 		IntPtr hEstButton          = Controls.CreateModuleButton(hWnd, "Estimating",         2,  141, 0, 60, 20, hFont);
 		IntPtr hPlanningButton     = Controls.CreateModuleButton(hWnd, "Planning",           3 , 282, 0, 80, 20, hFont);
 		IntPtr hLinkForecastButton = Controls.CreateModuleButton(hWnd, "Link And Forecast",  5,  423, 0, 80, 30, hFont);
