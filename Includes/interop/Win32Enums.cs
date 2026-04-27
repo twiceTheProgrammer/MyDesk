@@ -3,6 +3,20 @@ using System;
 namespace Win32.Interop
 {
 	[Flags]
+	public enum DrawTextFormat : uint
+	{
+		Center = 0x0001,
+		VCenter = 0x0004,
+		SingleLine = 0x0020,
+		Left = 0x0000,
+		Right = 0x0002,
+		WorkBreak = 0x0010,
+		ExpandTabs = 0x0040,
+		NoClip = 0x0100,
+		CalcRect = 0x0400
+	}
+
+	[Flags]
 	public enum WindowStyles : uint
 	{
 		Child = 0x40000000,
@@ -24,7 +38,7 @@ namespace Win32.Interop
 		DefPushButton = 0x00000001,
 		Flat = 0x00008000,
 		Center = 0x00000300,
-
+		OwnerDraw = 0x0000000B,
 		StaticLeft = 0x00000000,
 		StaticCenter = 0x00000001,
 

@@ -38,7 +38,7 @@ class Program
 
 		IntPtr hFont = Controls.FPTR_CreateFont();
 
-		IntPtr hCandyButton             = Controls.CreateModuleButton(hWnd, "Candy",              1,  0,   0, 80, 24,  hFont);
+		IntPtr hCandyButton             = Controls.CreateButton(hWnd, 1, "Candy",     0,   0, 80, 24);
 		IntPtr hEstButton               = Controls.CreateModuleButton(hWnd, "Estimating",         2,  80,  0, 110, 24, hFont);
 		IntPtr hPlanningButton          = Controls.CreateModuleButton(hWnd, "Planning",           3,  190, 0, 110, 24, hFont);
 		IntPtr hLinkForecastButton      = Controls.CreateModuleButton(hWnd, "Link And Forecast",  5,  300, 0, 125, 24, hFont);

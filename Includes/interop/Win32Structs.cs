@@ -37,4 +37,18 @@ namespace Win32.Interop
 		[MarshalAs(UnmanagedType.LPWStr)]
 		public string lpszClassName; // name of this window class
 	}
+
+	[StructLayout(LayoutKind.Sequential)]
+	public struct DRAWITEMSTRUCT
+	{
+		public uint CtlType;
+		public uint CtlID;
+		public uint itemID;
+		public uint itemAction;
+		public uint itemState;
+		public IntPtr hWndItem;
+		public IntPtr hdc;
+		public RECT rcItem;
+		public IntPtr itemData;	
+	}
 }

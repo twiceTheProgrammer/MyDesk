@@ -58,10 +58,12 @@ namespace Win32.Interop
 		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
 		public static extern IntPtr SendMessage(IntPtr hWnd, uint msg, IntPtr wParam, string lParam);
 		[DllImport("user32.dll")]
-		public static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursroName);
+		public static extern IntPtr LoadCursor(IntPtr hInstance, int lpCursorName);
 		[DllImport("user32.dll")]
 		public static extern IntPtr SetCursor(IntPtr hCursor);
 		[DllImport("user32.dll")]
 		public static extern int FillRect(IntPtr hdc, ref RECT lprc, IntPtr hbr);
+		[DllImport("user32.dll", CharSet = CharSet.Unicode)]
+		public static extern int DrawText(IntPtr hDC, string lpString, int nCount, ref RECT lpRect, uint uFormat);
 	}
 }

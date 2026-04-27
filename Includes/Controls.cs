@@ -61,19 +61,20 @@ public static class Controls
 			IntPtr.Zero
 		);
 	}
-	public static IntPtr CreateButton(IntPtr hWnd, int id, string text, int x, int y, int width, int height)
+	public static IntPtr CreateButton(IntPtr hWnd , int id, string text, int x, int y, int width, int height)
 	{
-		return User32.CreateWindowEx(
-			0,
-			"BUTTON",
-			text,
-			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.DefPushButton | WindowStyles.Flat),
+		IntPtr hBtn = User32.CreateWindowEx(
+			0, "BUTTON", text,
+			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.Flat | WindowStyles.Center | WindowStyles.OwnerDraw),
 			x, y, width, height,
 			hWnd,
 			(IntPtr)id,
 			IntPtr.Zero,
 			IntPtr.Zero
 		);
+
+		// User32.SendMessage(hBtn,(uint) WindowMsg.SetFont, hFont, (IntPtr)1);
+		return hBtn;
 	}
 	public static IntPtr FPTR_CreateFont()
 	{

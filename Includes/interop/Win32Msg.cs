@@ -10,12 +10,13 @@ namespace Win32.Interop
 		Command = 0x0111,
 		Size = 0x0005,
 		Close = 0x0010,
-		Destroy = 0x0001,
+		Destroy = 0x0002,
 		KeyDown = 0x0100,
 		KeyUp = 0x0101,
 		Char = 0x0102,
 		SetFont = 0x0030,
 		EraseBackground = 0x0014,
+		DrawItem = 0x002B,
 
 		// Text Messages
 		GetText = 0x000D,
@@ -37,6 +38,8 @@ namespace Win32.Interop
 		AddString = 0x0180,
 		DeleteString = 0x0182,
 		GetCurSel = 0x0188,
-		GetTextLen = 0x018A
+		GetTextLen = 0x018A,
+		GetText = 0x0189,
+		ResetContent = 0x0184
 	}
 }

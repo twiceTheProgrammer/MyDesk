@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Win32.Interop;
 
 public static class WndProcHandler
@@ -35,13 +36,27 @@ public static class WndProcHandler
 				User32.FillRect(hdc, ref rect, hBrush);
 				return (IntPtr)1;  // handled.
 			}
+			case WindowMsg.DrawItem:
+			{
+				DRAWITEMSTRUCT dis = Marshal.PtrToStructure<DRAWITEMSTRUCT>(lParam);
+
+				// background brush
+				IntPtr hBrush = Gdi32.CreateSolidBrush(0x0040C0FF);
+				User32.FillRect(dis.hdc, ref dis.rcItem, hBrush);
+
+				// Draw text centered
+				Gdi32.SetBkMode(dis.hdc, 1);
+				Gdi32.SetTextColor(dis.hdc, 0x00000000);
+
+				User32.DrawText(dis.hdc, "Candy", -1, ref dis.rcItem, (uint) (DrawTextFormat.Center | DrawTextFormat.VCenter | DrawTextFormat.SingleLine ));
+				return (IntPtr)1;
+			}
 			case WindowMsg.Close:
 			{
 				Environment.Exit(0);
 				break;
 			}
 		}
-
 		return User32.DefWindowProc(hWnd, msg, wParam, lParam);
 	}
 }
