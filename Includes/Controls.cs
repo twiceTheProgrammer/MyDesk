@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.InteropServices;
 using Win32.Interop;
 
 public static class Controls
@@ -65,7 +66,7 @@ public static class Controls
 	{
 		IntPtr hBtn = User32.CreateWindowEx(
 			0, "BUTTON", text,
-			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.Flat | WindowStyles.Center | WindowStyles.OwnerDraw),
+			(uint) (WindowStyles.Child | WindowStyles.Visible | WindowStyles.Flat | WindowStyles.Center),
 			x, y, width, height,
 			hWnd,
 			(IntPtr)id,
@@ -89,5 +90,37 @@ public static class Controls
 			(uint) (PitchAndFamily.DefaultPitch | PitchAndFamily.Swiss),
 			"Segoe UI"
 		);
+	}
+
+	public static IntPtr CreateTooltip(IntPtr hWndParent)
+	{
+		return User32.CreateWindowEx(
+			0x00000008,
+			"Tooltips_class32",
+			"",
+			(uint) WindowStyles.Popup,
+			0, 0, 0, 0,
+			hWndParent,
+			IntPtr.Zero,
+			Kernel32.GetModuleHandle(null),
+			IntPtr.Zero
+		);
+	}
+
+	public static void AttachTooltip(IntPtr hTooltip, IntPtr hControl, IntPtr hWndParent, string text)
+	{
+		TOOLINFO ti = new TOOLINFO();
+		ti.cbSize = Marshal.SizeOf(typeof(TOOLINFO));
+		ti.uFlags = (int) (TooltipFlags.IdIsHwnd | TooltipFlags.SubClass);
+		ti.hwnd = hWndParent;
+		ti.uId = hControl;
+		ti.lpszText = text;
+
+		IntPtr pToolInfo = Marshal.AllocHGlobal(Marshal.SizeOf(typeof(TOOLINFO)));
+		Marshal.StructureToPtr(ti, pToolInfo, false);
+
+		User32.SendMessage(hTooltip, (uint)TooltipMsg.AddTool, IntPtr.Zero, pToolInfo);
+
+		Marshal.FreeHGlobal(pToolInfo);
 	}
 }

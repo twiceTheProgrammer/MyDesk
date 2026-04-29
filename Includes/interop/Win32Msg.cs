@@ -42,4 +42,20 @@ namespace Win32.Interop
 		GetText = 0x0189,
 		ResetContent = 0x0184
 	}
+
+	public enum TooltipMsg : uint
+	{
+		AddTool = 0x0432,
+		DelTool = 0x0433, 
+		NewToolRect = 0x0431,
+		TrackActivate = 0x0411,
+		TrackPosition = 0x0412
+	}
+
+	[Flags]
+	public enum TooltipFlags : uint
+	{
+		IdIsHwnd = 0x0001,
+		SubClass = 0x0010
+	}
 }

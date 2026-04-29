@@ -37,8 +37,10 @@ class Program
 		User32.UpdateWindow(hWnd);
 
 		IntPtr hFont = Controls.FPTR_CreateFont();
+		IntPtr hTooltip = Controls.CreateTooltip(hWnd);
 
 		IntPtr hCandyButton             = Controls.CreateButton(hWnd, 1, "Candy",     0,   0, 80, 24);
+		Controls.AttachTooltip(hTooltip, hCandyButton, hWnd, "Click for job manager");
 		IntPtr hEstButton               = Controls.CreateModuleButton(hWnd, "Estimating",         2,  80,  0, 110, 24, hFont);
 		IntPtr hPlanningButton          = Controls.CreateModuleButton(hWnd, "Planning",           3,  190, 0, 110, 24, hFont);
 		IntPtr hLinkForecastButton      = Controls.CreateModuleButton(hWnd, "Link And Forecast",  5,  300, 0, 125, 24, hFont);
@@ -48,9 +50,6 @@ class Program
 		IntPtr hCostAllowableButton     = Controls.CreateModuleButton(hWnd, "Cost And Allowables",9,  770, 0, 150, 24, hFont);
 		IntPtr hMaterialsReceivedButton = Controls.CreateModuleButton(hWnd, "Materials Received", 10, 920, 0, 150, 24, hFont);
 		IntPtr hDrawingsButton          = Controls.CreateModuleButton(hWnd, "Drawings",           11, 1070, 0,110, 24, hFont);
-
-		// Toolbar
-		// IntPtr hToolBarSection 
 
 		// Run Message loop
 		MSG msg;

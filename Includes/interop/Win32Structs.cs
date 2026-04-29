@@ -51,4 +51,16 @@ namespace Win32.Interop
 		public RECT rcItem;
 		public IntPtr itemData;	
 	}
+	[StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+	public struct TOOLINFO
+	{
+		public int cbSize;
+		public int uFlags;
+		public IntPtr hwnd;
+		public IntPtr uId;
+		public RECT rect;
+		public IntPtr hinst;
+		[MarshalAs(UnmanagedType.LPStr)]
+		public string lpszText;
+	}
 }
