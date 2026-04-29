@@ -7,19 +7,25 @@ using System.Threading.Tasks;
 
 namespace Calculator.API
 {
-	internal class CalculatorAPI 
+	[StructLayout(LayoutKind.Sequential)]
+	internal struct CalculatorAPI
 	{
-		private const string DLL_PATH = "calc-api.dll";
-		[DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-		public static extern double Add(double a, double b);
+		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+		public delegate double CalcOp(double a, double b);
+		public CalcOp Add;
+		public CalcOp Subtract;
+		public CalcOp Multiply;
+		public CalcOp Divide;
+	}
 
-		[DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-		public static extern double Subtract(double a, double b);
-
-		[DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-		public static extern double Multiply(double a, double b);
-	
-		[DllImport(DLL_PATH, CallingConvention = CallingConvention.Cdecl)]
-		public static extern double Divide(double a, double b);
+	internal class Native
+	{
+		[DllImport("calc-api.dll", CallingConvention = CallingConvention.Cdecl)]
+		public static extern IntPtr ICalculatorAPI();
+		public static CalculatorAPI Load()
+		{
+			IntPtr api = ICalculatorAPI();
+			return Marshal.PtrToStructure<CalculatorAPI>(api);
+		}
 	}
 }

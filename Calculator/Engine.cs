@@ -2,6 +2,7 @@ namespace Calculator.API
 {
 	public class Engine
 	{
+		private static readonly CalculatorAPI api = Native.Load();
 		private readonly State _state;
 
 		public Engine(State state)
@@ -34,10 +35,10 @@ namespace Calculator.API
 			double result = 0;
 			switch(_state.PendingOperator)
 			{
-				case "+": result = CalculatorAPI.Add(_state.LeftOperand, rightOperand); break;
-				case "-": result = CalculatorAPI.Subtract(_state.LeftOperand, rightOperand); break;
-				case "*": result = CalculatorAPI.Multiply(_state.LeftOperand, rightOperand); break;
-				case "/": result = CalculatorAPI.Divide(_state.LeftOperand, rightOperand); break;
+				case "+": result = api.Add(_state.LeftOperand, rightOperand); break;
+				case "-": result = api.Subtract(_state.LeftOperand, rightOperand); break;
+				case "*": result = api.Multiply(_state.LeftOperand, rightOperand); break;
+				case "/": result = api.Divide(_state.LeftOperand, rightOperand); break;
 			}
 
 			// Handle Number / 0. Show a friendly message.
