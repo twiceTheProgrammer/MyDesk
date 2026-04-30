@@ -10,6 +10,7 @@ namespace Calculator.API
 	[StructLayout(LayoutKind.Sequential)]
 	internal struct CalculatorAPI
 	{
+		public uint version;
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		public delegate double CalcOp(double a, double b);
 		public CalcOp Add;

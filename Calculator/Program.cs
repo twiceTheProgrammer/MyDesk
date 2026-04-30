@@ -5,6 +5,8 @@ using Calculator.API;
 
 class Program
 {
+	private static readonly CalculatorAPI api = Native.Load();
+
 	static void Main()
 	{
 		string className = "Calculator";
@@ -30,6 +32,8 @@ class Program
 			IntPtr.Zero,
 			IntPtr.Zero,
 			IntPtr.Zero);
+
+		// User32.MessageBox(hWnd, $" API version: { api.version }", "Debug", 0);
 
 		// Result display label
 		WndProcHandler.hResult = Controls.CreateLabel(hWnd, 1, "", 20, 20, 340, 60);

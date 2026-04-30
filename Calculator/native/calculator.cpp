@@ -2,10 +2,12 @@
 #include <limits>
 
 #define API __declspec(dllexport)
+#define VERSION 1
 
 extern "C" {
 	struct CalculatorAPI 
 	{
+		unsigned int version;
 		double (*Add)(double a, double b);
 		double (*Subtract)(double a, double b);
 		double (*Multiply)(double a, double b);
@@ -21,6 +23,7 @@ extern "C" {
 	API const CalculatorAPI* ICalculatorAPI()
 	{
 		static CalculatorAPI api = {
+			VERSION,
 			&Add,
 			&Subtract,
 			&Multiply,
