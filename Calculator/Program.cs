@@ -33,7 +33,7 @@ class Program
 			IntPtr.Zero,
 			IntPtr.Zero);
 
-		// User32.MessageBox(hWnd, $" API version: { api.version }", "Debug", 0);
+		// User32.MessageBox(hWnd, $"Version: {api.version}\nSize: {api.size}", "Debug", 0);
 
 		// Result display label
 		WndProcHandler.hResult = Controls.CreateLabel(hWnd, 1, "", 20, 20, 340, 60);

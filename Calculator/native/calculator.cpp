@@ -8,6 +8,7 @@ extern "C" {
 	struct CalculatorAPI 
 	{
 		unsigned int version;
+		unsigned int size;   // size of this struct in bytes
 		double (*Add)(double a, double b);
 		double (*Subtract)(double a, double b);
 		double (*Multiply)(double a, double b);
@@ -24,6 +25,7 @@ extern "C" {
 	{
 		static CalculatorAPI api = {
 			VERSION,
+			sizeof(CalculatorAPI),
 			&Add,
 			&Subtract,
 			&Multiply,

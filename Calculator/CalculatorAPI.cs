@@ -11,6 +11,8 @@ namespace Calculator.API
 	internal struct CalculatorAPI
 	{
 		public uint version;
+		public uint size;
+		
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		public delegate double CalcOp(double a, double b);
 		public CalcOp Add;
