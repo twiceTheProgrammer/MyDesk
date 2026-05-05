@@ -1,26 +1,16 @@
-<html 
-   window-width=800px
-   window-height=600px
-   window-resizable=true>
-  <head>
-    <title>Hello</title>
-    <style>
-
-      html {
-        background:gold;
-      }
-
-      body {
-        vertical-align:middle;
-        text-align:center;
-      }
-
-    </style>
-    <script>
-
-    </script>
-  </head>
-  <body>
-		<h2>Hello world!</h2>
-  </body>
+<html  window-resizable>
+	<head>
+		<title>Horizon Hub</title>
+		<style>
+			@import url(main.css);
+		</style>
+		<script|module>
+			import {Application} from "application.js";
+			// let's rock-n-roll!
+			document.body.patch(<Application />);
+		</script>
+	</head>
+	<body>
+			<h2>Hello world!</h2>
+	</body>
 </html>

@@ -45,6 +45,7 @@ namespace TestCore
 			AppWnd = new SciterWindow();
 
 			var wnd = AppWnd;
+
 			wnd.CreateMainWindow(1600, 900);
 			wnd.CenterTopLevelWindow();
 
