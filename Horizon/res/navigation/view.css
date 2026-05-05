@@ -1,0 +1,12 @@
+@set navigation {
+	:root {
+		max-width: 128px;
+		width: *;
+		height:*;
+		vertical-align: middle;
+		text-align: center;
+		border-right: 1px solid var(border-color);
+		background:var(base-color);
+		color: var(base-text-color);
+	}
+}

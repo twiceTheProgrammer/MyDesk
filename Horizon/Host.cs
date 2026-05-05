@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.IO;
+using Horizon.API;
+using Horizon.Interop;
 
 namespace TestCore
 {
@@ -19,15 +21,8 @@ namespace TestCore
 		//|
 		//| Native API (script handler) - functions that handle calls/events from UI.
 		//|
-
-		// private readonly NativeAPI _nativeApi = new NativeAPI();
-		// public SciterValue Host_HelloWorld() => _nativeApi.Host_HelloWorld();
-		// public SciterValue UserInformation(SciterValue[] args) => _nativeApi.UserInformation(args);
-		// public SciterValue GetDataPathInfo() => _nativeApi.GetDataPathInfo();
-		// public SciterValue GetCompanyInfo() => _nativeApi.GetCompanyInfo();
-		// public SciterValue GetJobInfo() => _nativeApi.GetJobInfo();
-		// public SciterValue GetPricingBillData() => _nativeApi.GetPricingBillData();
-
+		private readonly NativeAPI _api = new NativeAPI();
+		public SciterValue Host_HelloWorld() => _api.Host_HelloWorld();
 	}
 
 	class BaseHost : SciterHost
