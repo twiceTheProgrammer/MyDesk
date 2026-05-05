@@ -4,7 +4,6 @@ using namespace std;
 
 int main()
 {
-
 	const string password = "Hello";
 	string input;
 
@@ -18,7 +17,7 @@ int main()
 		}
 
 	} while (input != password);
-	
+
 	cout << "Password accepted" << endl;
 	return 0;
 }
