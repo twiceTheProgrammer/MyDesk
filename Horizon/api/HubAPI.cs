@@ -3,7 +3,6 @@ using Horizon.Interop;
 
 namespace Horizon.API
 {
-
 	public class NativeAPI : SciterEventHandler
 	{
 		private readonly HorizonAPI _api = Native.Load();
@@ -17,7 +16,7 @@ namespace Horizon.API
 		{
 			var res = new
 			{
-				res = _api.Add(1.5, 3.5)
+				res = _api.EstimateBricks(10)
 			};
 
 			return SciterValue.FromObject(res); 

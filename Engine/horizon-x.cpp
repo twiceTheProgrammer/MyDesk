@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <limits>
+#include "construction\estimation.h"
 
 #define API __declspec(dllexport)
 #define VERSION 1
@@ -13,6 +14,7 @@ extern "C" {
 		double (*Subtract)(double a, double b);
 		double (*Multiply)(double a, double b);
 		double (*Divide) (double a, double b);
+		int (*EstimateBricks)(int cementBags);
 	};
 
 	static double Add(double a, double b)   { return a + b; }
@@ -29,7 +31,8 @@ extern "C" {
 			&Add,
 			&Subtract,
 			&Multiply,
-			&Divide
+			&Divide,
+			&EstimateBricks
 		};
 	
 		return &api;

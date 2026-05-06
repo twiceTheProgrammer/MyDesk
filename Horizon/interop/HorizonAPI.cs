@@ -10,10 +10,12 @@ namespace Horizon.Interop
 		public uint size;
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 		public delegate double CalcOp(double a, double b);
+		public delegate int EstimateOp(int cements);
 		public CalcOp Add;
 		public CalcOp Subtract;
 		public CalcOp Multiply;
 		public CalcOp Divide;
+		public EstimateOp EstimateBricks;
 	}
 
 	internal class Native
