@@ -16,7 +16,7 @@ namespace Horizon.API
 		{
 			var res = new
 			{
-				res = _api.EstimateBricks(10)
+				res = _api.EstimateBricks(25)
 			};
 
 			return SciterValue.FromObject(res); 

@@ -1,5 +1,6 @@
 #include <windows.h>
 #include <limits>
+#include "calculator.h"
 #include "construction\estimation.h"
 
 #define API __declspec(dllexport)
@@ -16,11 +17,6 @@ extern "C" {
 		double (*Divide) (double a, double b);
 		int (*EstimateBricks)(int cementBags);
 	};
-
-	static double Add(double a, double b)   { return a + b; }
-	static double Subtract(double a, double b) { return a - b; }
-	static double Multiply(double a, double b) { return a * b; }
-	static double Divide(double a, double b)   { return b == 0 ? std::numeric_limits<double>::quiet_NaN() : a / b; }
 
 	// Return API table.
 	API const HorizonAPI* IHorizonAPI()
