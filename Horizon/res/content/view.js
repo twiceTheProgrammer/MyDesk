@@ -9,8 +9,8 @@ export class ContentView extends Element
 	}
 
 	["on click at #test"]() {
-		let res = Window.this.xcall("Host_HelloWorld");
-		Window.this.modal(<info>{res}</info>);
+		let res = Window.this.xcall("AddNumbers");
+		Window.this.modal(<info>{res.res}</info>);
 		return true; 
 	}
 }

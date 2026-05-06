@@ -13,9 +13,14 @@ namespace Horizon.API
 			return new SciterValue("Hello World from native side!");
 		}
 
-		public SciterValue Add(SciterValue[] args)
+		public SciterValue AddNumbers(SciterValue[] args)
 		{
-			return SciterValue.FromObject(new {});
+			var res = new
+			{
+				res = _api.Add(1.5, 3.5)
+			};
+
+			return SciterValue.FromObject(res); 
 		}
 	}
 }

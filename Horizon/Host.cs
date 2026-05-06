@@ -23,6 +23,7 @@ namespace TestCore
 		//|
 		private readonly NativeAPI _api = new NativeAPI();
 		public SciterValue Host_HelloWorld() => _api.Host_HelloWorld();
+		public SciterValue AddNumbers(SciterValue[] args) => _api.AddNumbers(args);
 	}
 
 	class BaseHost : SciterHost
