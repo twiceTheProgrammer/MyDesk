@@ -21,5 +21,17 @@ namespace Horizon.API
 
 			return SciterValue.FromObject(res); 
 		}
+
+		public SciterValue EstimateBricksFor(SciterValue[] args)
+		{
+			int bagsOfCement = args[0].Get(0);
+
+			var res = new
+			{
+				total = _api.EstimateBricks(bagsOfCement)
+			};
+
+			return SciterValue.FromObject(res);
+		}
 	}
 }
