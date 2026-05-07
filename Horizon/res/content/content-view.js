@@ -1,6 +1,6 @@
-import { TasksView }     from "routes/tasks-view.js";
-import { InventoryView } from "routes/inventory-view.js";
-import { ReportsView }   from "routes/reports-view.js";
+import { TasksView }     from "routes/tasks/tasks-view.js";
+import { InventoryView } from "routes/inventory/inventory-view.js";
+import { ReportsView }   from "routes/reports/reports-view.js";
 
 const routes = {
 	"tasks"     : <TasksView />,
