@@ -1,0 +1,11 @@
+
+@set inventory 
+{
+	:root {
+		display: block;
+		size:*;
+		color: gold;
+		vertical-align: middle;
+		text-align: center;
+	}
+}

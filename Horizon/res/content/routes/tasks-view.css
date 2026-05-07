@@ -1,0 +1,9 @@
+
+@set tasks {
+	:root {
+		display:block;
+		color: green;
+		vertical-align: middle;
+		text-align: center;
+	}
+}

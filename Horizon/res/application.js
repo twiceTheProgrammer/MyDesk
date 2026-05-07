@@ -2,9 +2,9 @@
 import {MenuBar} from "menu/menu-bar.js";
 import {ToolBar} from "toolbar/tool-bar.js";
 import {StatusBar} from "status-bar/status-bar.js";
-import {NavigationView} from "navigation/view.js";
+import {NavigationView} from "navigation/navigation.js";
 import {PropertiesView} from "properties/view.js";
-import {ContentView} from "content/view.js";
+import {ContentView} from "content/content-view.js";
 
 export class Application extends Element {
 
