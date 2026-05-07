@@ -13,4 +13,9 @@ export class NavigationView extends Element
 			</ul>
 		</section>;
 	}
+
+	["on change at #navigation-bar>li"](evt, li) {
+		this.dispatchEvent(new Event("navigate-to", {bubbles: true, data: li.value}));
+		return true;
+	}
 }

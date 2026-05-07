@@ -1,9 +1,11 @@
 import { TasksView }     from "routes/tasks-view.js";
 import { InventoryView } from "routes/inventory-view.js";
+import { ReportsView }   from "routes/reports-view.js";
 
 const routes = {
-	"tasks" : <TasksView />,
-	"inventory" : <InventoryView />
+	"tasks"     : <TasksView />,
+	"inventory" : <InventoryView />,
+	"reports"   : <ReportsView />
 };
 
 export class ContentView extends Element 
@@ -17,8 +19,19 @@ export class ContentView extends Element
 		super();
 
 		this.routes = routes;
-		this.routeName = "inventory";
+		this.routeName = "tasks";
 		this.routeView = routes[this.routeName];
+	}
+
+	componentDidMount()
+	{
+		const callback = (evt)=> {
+			this.componentUpdate({
+				routeView: routes[evt.data]
+			});	
+		};
+
+		this.onGlobalEvent("navigate-to", callback);
 	}
 
 	navigateTo(routeName, routeParams = null)

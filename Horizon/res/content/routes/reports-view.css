@@ -1,10 +1,10 @@
 
-@set tasks {
+@set reports {
 	:root {
-		display:block;
+		display: block;
 		size:*;
-		color: green;
 		vertical-align: middle;
 		text-align: center;
+		color: red;
 	}
 }

@@ -8,10 +8,7 @@ body { margin:0; overflow:hidden; }
 main {
     flow:horizontal;
     height:*;
-}
-
-main > section {
-    height:*;
+	width:*;
 }
 
 // color system 
