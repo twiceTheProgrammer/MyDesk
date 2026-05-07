@@ -29,3 +29,11 @@ html:theme(dark) {
     var(base95-color): #333; var(base95-text-color): #fff; 
     var(border-color): #333;
 }
+
+hr { 
+	margin:0;
+	padding: 0;
+	height: 0;
+	border: none;
+	border-top: 1px dashed #999;
+}
