@@ -4,14 +4,16 @@
 		size: *;
 		flow: vertical;
 		border-right: 1px solid var(border-color);
-		background:var(base-color);
+		background:transparent;
 		color: var(base-text-color);
 	}
 
 	header {
 		display: block;
+		background-color: threadlightshadow;
 		width: *;
-		height: 2.5em;
+		height: 3em;
+		padding:4dip 4dip;
 		vertical-align: middle;
 		text-align: center;
 	}

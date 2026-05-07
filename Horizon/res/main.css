@@ -1,6 +1,7 @@
 
 html { 
 	font:system;
+	background-color: #F0F0F0;
 }
 
 body { margin:0; overflow:hidden; }
@@ -9,6 +10,7 @@ main {
     flow:horizontal;
     height:*;
 	width:*;
+	border-top:1px solid color(border-color);
 }
 
 // color system 
@@ -17,7 +19,7 @@ html {
     var(accent-color): window-accent-color;
     var(base-color): #fff; var(base-text-color): #000; 
     var(base95-color): #f4f4f4; var(base95-text-color): #000; 
-    var(border-color): #888;
+    var(border-color): #ccc;
 
 	/* navigation colors */
 }

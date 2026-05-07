@@ -7,7 +7,7 @@
         vertical-align:middle;
         text-align:center;
         border-left: 1px solid var(border-color);
-        background:var(base-color);
+        background: transparent;
         color:var(base-text-color);
     }
 
