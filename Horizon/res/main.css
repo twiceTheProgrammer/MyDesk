@@ -1,5 +1,7 @@
 
-html { }
+html { 
+	font:system;
+}
 
 body { margin:0; overflow:hidden; }
 
@@ -18,7 +20,9 @@ html {
     var(accent-color): window-accent-color;
     var(base-color): #fff; var(base-text-color): #000; 
     var(base95-color): #f4f4f4; var(base95-text-color): #000; 
-    var(border-color): #f4f4f4;
+    var(border-color): #888;
+
+	/* navigation colors */
 }
 
 html:theme(dark) {

@@ -1,7 +1,7 @@
 
 @set properties {
     :root {
-        max-width:128px;
+        max-width:150px;
         width:*; // expandable;
         height:*;
         vertical-align:middle;

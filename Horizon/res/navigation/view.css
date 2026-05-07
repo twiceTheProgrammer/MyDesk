@@ -1,12 +1,41 @@
 @set navigation {
 	:root {
-		max-width: 128px;
-		width: *;
-		height:*;
-		vertical-align: middle;
-		text-align: center;
+		max-width: 250px;
+		size: *;
+		flow: vertical;
 		border-right: 1px solid var(border-color);
 		background:var(base-color);
 		color: var(base-text-color);
+	}
+
+	header {
+		display: block;
+		width: *;
+		height: 2.5em;
+		vertical-align: middle;
+		text-align: center;
+	}
+
+	#navigation-bar 
+	{
+		margin:3dip 0 0 0;
+		padding:4dip;
+		flow: vertical;
+		line-height: 1.5em;
+		border-spacing:4dip;
+	}
+
+	#navigation-bar > li {
+		behavior: radio;
+		height: 2em;
+		width: *;
+		padding: 4dip 4dip 4dip 2.5em;
+		list-style: none;
+		border-left:4dip solid transparent;
+		cursor: pointer;
+	}
+
+	#navigation-bar > li:checked{
+		border-color: highlight;
 	}
 }
