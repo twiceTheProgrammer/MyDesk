@@ -1,6 +1,5 @@
 
 import {MenuBar} from "menu/menu-bar.js";
-import {ToolBar} from "toolbar/tool-bar.js";
 import {StatusBar} from "status-bar/status-bar.js";
 import {NavigationView} from "navigation/navigation.js";
 import {PropertiesView} from "properties/view.js";
@@ -15,11 +14,10 @@ export class Application extends Element {
 	render() {
 		return <body>
 			<MenuBar app={this} />
-			<ToolBar app={this} />
-			<main>         
+			<main>
 				{ this.navigationViewShown && <NavigationView app={this} /> }
-				<ContentView app={this}/>
 				{ this.propertiesViewShown && <PropertiesView app={this} /> }
+				<ContentView app={this}/>
 			</main>
 			<StatusBar app={this} />
 		</body>;
@@ -32,6 +30,4 @@ export class Application extends Element {
 	["on click at .view-toggle[name=properties]"]() {
 		this.componentUpdate({propertiesViewShown: !this.propertiesViewShown});
 	}
-
-	
 }

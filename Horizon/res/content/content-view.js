@@ -13,6 +13,7 @@ import { DrawingsView }           from "routes/drawings/drawings-view.js";
 import { ProfileView }            from "routes/profile/profile-view.js";
 import { SettingsView }           from "routes/settings/settings-view.js";
 
+
 const routes = {
 	"tasks"             : <TasksView />,
 	"inventory"         : <InventoryView />,
@@ -73,9 +74,9 @@ export class ContentView extends Element
 
 	render()
 	{
-		return <section styleset={__DIR__ + "content-view.css#content"}>
+		return <content-view styleset={__DIR__ + "content-view.css#content"}>
 			{this.routeView}
-		</section>;
+		</content-view>;
 	}
 
 	// event handlers:
