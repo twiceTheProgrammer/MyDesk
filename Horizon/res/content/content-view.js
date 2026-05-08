@@ -10,6 +10,8 @@ import { SubContractManagerView } from "routes/subcontract-manager/subcontract-m
 import { CostAndAllowablesView }  from "routes/cost-and-allowables/cost-and-allowables.js";
 import { MaterialsView }          from "routes/materials/materials-view.js";
 import { DrawingsView }           from "routes/drawings/drawings-view.js";
+import { ProfileView }            from "routes/profile/profile-view.js";
+import { SettingsView }           from "routes/settings/settings-view.js";
 
 const routes = {
 	"tasks"             : <TasksView />,
@@ -23,7 +25,9 @@ const routes = {
 	"subcontract"       : <SubContractManagerView />,
 	"costAndAllowables" : <CostAndAllowablesView />,
 	"materials"         : <MaterialsView />,
-	"drawings"          : <DrawingsView />
+	"drawings"          : <DrawingsView />,
+	"profile"           : <ProfileView />,
+	"settings"          : <SettingsView />
 };
 
 export class ContentView extends Element 

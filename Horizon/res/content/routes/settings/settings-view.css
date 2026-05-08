@@ -1,0 +1,8 @@
+@set settings {
+	:root {
+		display: block;
+		size:*;
+		vertical-align: middle;
+		text-align: center;
+	}
+}
