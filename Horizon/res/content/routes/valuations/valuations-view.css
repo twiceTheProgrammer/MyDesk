@@ -1,8 +1,7 @@
-
-@set tasks {
+@set valuations {
 	:root {
-		display:block;
-		size:*;
+		display: block;
+		size: *;
 		vertical-align: middle;
 		text-align: center;
 	}

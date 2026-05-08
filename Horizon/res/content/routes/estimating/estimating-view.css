@@ -1,7 +1,7 @@
-
-@set tasks {
+@set estimating 
+{
 	:root {
-		display:block;
+		display: block;
 		size:*;
 		vertical-align: middle;
 		text-align: center;

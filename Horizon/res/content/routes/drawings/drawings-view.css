@@ -1,8 +1,8 @@
-
-@set tasks {
+@set drawings 
+{
 	:root {
-		display:block;
-		size:*;
+		display: block;
+		size: *;
 		vertical-align: middle;
 		text-align: center;
 	}

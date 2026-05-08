@@ -1,7 +1,6 @@
-
-@set tasks {
+@set materials {
 	:root {
-		display:block;
+		display : block;
 		size:*;
 		vertical-align: middle;
 		text-align: center;
