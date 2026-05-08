@@ -3,9 +3,6 @@ export class NavigationView extends Element
 
 	render() {
 		return <section styleset={__DIR__ + "navigation.css#navigation"}>
-			<header>
-				<h2>Horizon Hub</h2>
-			</header>
 			<ul #navigation-bar >
 				<li #tasks      value="tasks" checked >My Tasks</li>
 				<li #inventory  value="inventory">My Inventory</li>

@@ -16,7 +16,7 @@ export class Application extends Element {
 			<MenuBar app={this} />
 			<main>
 				{ this.navigationViewShown && <NavigationView app={this} /> }
-				{ this.propertiesViewShown && <PropertiesView app={this} /> }
+				{/* { this.propertiesViewShown && <PropertiesView app={this} /> } */}
 				<ContentView app={this}/>
 			</main>
 			<StatusBar app={this} />

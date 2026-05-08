@@ -3,6 +3,7 @@
 	:root {
 		background: var(base95-color);
 		color: var(base95-text-color);
+		border-bottom: 1dip solid color(border-color);
 	}
 
 	:root > button {

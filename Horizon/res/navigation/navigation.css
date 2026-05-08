@@ -8,15 +8,6 @@
 		color: #fff;
 	}
 
-	header {
-		display: block;
-		background-color: threadlightshadow;
-		width: *;
-		height: 3em;
-		padding:4dip 4dip;
-		vertical-align: middle;
-		text-align: center;
-	}
 
 	#navigation-bar 
 	{

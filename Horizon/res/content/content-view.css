@@ -4,7 +4,7 @@
 		display: block;
 		width: *;   // takes space left from nav and props
 		height: *;
-		flow: vertical;
+		flow: horizontal;
 		text-align: center;
 		background-color: #f4f4f4;
 	}
