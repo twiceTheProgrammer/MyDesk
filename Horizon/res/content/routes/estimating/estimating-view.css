@@ -59,4 +59,27 @@
 		padding:2dip 2dip 2dip 2.5em;
 		color:#000;
 	}
+
+	note {
+		display: block;
+		padding: 6dip;
+		margin: 6dip;
+		background: #FEE;
+		height: max-content;
+		width: *;
+		text-align: left;
+	}
+
+	#prep-form {
+		size:*;
+		padding: 8dip;
+		flow: row(label, input);
+		border-spacing: 6dip;
+	}
+
+	#prep-form > label {
+		padding: 4dip;
+		white-space: nowrap;
+		horizontal-align: right;
+	}
 }

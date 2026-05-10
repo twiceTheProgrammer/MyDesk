@@ -24,7 +24,8 @@ namespace Horizon.API
 
 		public SciterValue EstimateBricksFor(SciterValue[] args)
 		{
-			int bagsOfCement = args[0].Get(0);
+			int bagsOfCement;
+			int.TryParse(args[0].Get(""), out bagsOfCement);
 
 			var res = new
 			{
