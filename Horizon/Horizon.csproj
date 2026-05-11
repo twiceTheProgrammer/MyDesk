@@ -16,6 +16,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="Google.Protobuf" Version="3.34.1" />
+    </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="$(ProjectDir)scripts\packWindows.bat $(ConfigurationName)" />
