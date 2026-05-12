@@ -1,6 +1,5 @@
 #pragma once
 
-#include "calculator.h"
 #include "construction/estimation.h"
 #include <windows.h>
 #include <limits>
@@ -12,10 +11,6 @@ struct HorizonAPI
 {
 	unsigned int version;
 	unsigned int size;
-	double (*Add)(double a, double b);
-	double (*Subtract)(double a, double b);
-	double (*Multiply)(double a, double b);
-	double (*Divide) (double a, double b);
 	int (*EstimateBricks)(int cementBags);
 };
 

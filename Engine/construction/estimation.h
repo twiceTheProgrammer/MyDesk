@@ -17,8 +17,6 @@ int BricksEstimate::NumberOfBricks(int cements){
 	return bricks;
 }
 
-
-
 int EstimateBricks(int cementBags)
 {
 	BricksEstimate estimate;
