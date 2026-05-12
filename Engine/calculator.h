@@ -1,4 +1,5 @@
 #pragma once
+#include <limits>
 
 static double Add(double a, double b)   { return a + b; }
 static double Subtract(double a, double b) { return a - b; }
