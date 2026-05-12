@@ -10,9 +10,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Reflection;
 using System.Drawing;
-using Google.Protobuf;
-using Tutorial;
-
+using Estimating.Protos;
 
 namespace TestCore
 {
@@ -34,29 +32,6 @@ namespace TestCore
 		[STAThread]
 		static void Main(string[] args)
 		{
-			// proto buff tests
-			// create person
-			var person = new Person
-			{
-				Name = "Alice",
-				Id = 123,
-				Email = "alice@example.com"
-			};
-
-			person.Phones.Add(new Person.Types.PhoneNumber
-			{
-					Number = "072-123-4567",
-					Type = Person.Types.PhoneType.Mobile
-			});
-
-			// Serialize to byte array
-			byte[] data = person.ToByteArray();
-
-			// Deserialize back
-			var parsed = Person.Parser.ParseFrom(data);
-
-			MessageBox.Show(IntPtr.Zero,$"Name : {parsed.Name},\nEmail: {parsed.Email}", "Proto test" );
-
 
 			Debug.WriteLine("Sciter: " + SciterX.Version);
 			Debug.WriteLine("Bitness: " + IntPtr.Size);
