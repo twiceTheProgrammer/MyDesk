@@ -1,24 +1,20 @@
 #pragma once
 
-class BricksEstimate 
+class Estimate 
 {
 	private: 
-		int const ESTIMATE_BRICKS = 50;
-	
+		int const BRICKS_PER_BAG = 50;
+		int const BRICKS_PER_M2 = 50;   // ~50 brick per square meter
+		int const WHEELBARROWS_PER_BAG = 4; // let's make our ratio 1 bag for every 4 wheel barrows of sand.
+
 	public:
-		BricksEstimate();
+		Estimate();
 		int NumberOfBricks(int cements);
+		int SandRequired(int bagsOfCement);
+		int BricksForWall(double length, double height, double width);
 };
 
-BricksEstimate::BricksEstimate() {}
 
-int BricksEstimate::NumberOfBricks(int cements){
-	int bricks = cements * ESTIMATE_BRICKS;
-	return bricks;
-}
-
-int EstimateBricks(int cementBags)
-{
-	BricksEstimate estimate;
-	return estimate.NumberOfBricks(cementBags);
-}
+Estimate estimate;
+int EstimateBricks(int cementBags) { return estimate.NumberOfBricks(cementBags); }
+int EstimateSand(int cement) { return estimate.SandRequired(cement); }
