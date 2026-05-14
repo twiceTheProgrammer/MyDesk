@@ -9,8 +9,15 @@ namespace Horizon.Interop
 		public uint version;
 		public uint size;
 		[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-		public delegate int EstimateOp(int cements);
-		public EstimateOp EstimateBricks;
+		public delegate int FPTR_EstimateBricks(int cementBags);
+		public delegate int FPTR_SandRequired(int cementBags);
+		public delegate int FPTR_CementRequiredForWall(int bricks);
+		public delegate int FPTR_BricksForWall(int length, int height, int width);
+
+		public FPTR_EstimateBricks EstimateBricks;
+		public FPTR_SandRequired SandRequired;
+		public FPTR_CementRequiredForWall CementRequiredForWall;
+		public FPTR_BricksForWall BricksForWall;
 	}
 
 	internal class Native

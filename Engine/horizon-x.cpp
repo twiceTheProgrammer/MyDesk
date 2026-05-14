@@ -6,8 +6,12 @@ extern "C" API const HorizonAPI* IHorizonAPI() {
 	static HorizonAPI api = {
 		VERSION,
 		sizeof(HorizonAPI),
-		&EstimateBricks
+		&EstimateBricks,
+		&SandRequired,
+		&CementRequiredForWall,
+		&BricksForWall
 	};
 
 	return &api;
 }
+
