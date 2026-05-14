@@ -12,16 +12,6 @@ namespace Horizon.API
 			return new SciterValue("Hello World from native side!");
 		}
 
-		public SciterValue AddNumbers(SciterValue[] args)
-		{
-			var res = new
-			{
-				res = _api.EstimateBricks(25)
-			};
-
-			return SciterValue.FromObject(res); 
-		}
-
 		public SciterValue EstimateBricksFor(SciterValue[] args)
 		{
 			int bagsOfCement;
@@ -30,6 +20,19 @@ namespace Horizon.API
 			var res = new
 			{
 				total = _api.EstimateBricks(bagsOfCement)
+			};
+
+			return SciterValue.FromObject(res);
+		}
+
+		public SciterValue SandRequired(SciterValue[] args)
+		{
+			int bagsOfCement;
+			int.TryParse(args[0].Get(""), out bagsOfCement);
+
+			var res = new
+			{
+				total = _api.SandRequired(bagsOfCement)
 			};
 
 			return SciterValue.FromObject(res);

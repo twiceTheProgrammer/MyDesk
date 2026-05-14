@@ -6,7 +6,7 @@
 		flow:horizontal;
 	}
 
-	section {
+	#content {
 		size:*;
 		border-collapse: collapse;
 		flow:vertical;
@@ -69,9 +69,14 @@
 		width: *;
 		text-align: left;
 	}
+	#prep-report {
+		size:*;
+		padding:4dip 6dip;
+	}
 
 	#prep-form {
-		size:*;
+		width: min-content;
+		height: max-content;
 		padding: 8dip;
 		flow: row(label, input);
 		border-spacing: 6dip;
@@ -81,5 +86,15 @@
 		padding: 4dip;
 		white-space: nowrap;
 		horizontal-align: right;
+	}
+
+	#result {
+		height:max-content;
+		width:max-content;
+	}
+
+	#result > list {
+		display: block;
+		size:*;
 	}
 }

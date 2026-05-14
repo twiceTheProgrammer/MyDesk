@@ -14,12 +14,19 @@ namespace Room2 {
 	}
 }
 
+void func(int& x)
+{
+	x++;
+}
+
 using namespace Room1;
 
 int main()
 {
 	greet();
 	Room2::greet();
-
+	int a = 3;
+	func(a);
+	cout << a << endl;
 	return 0;
 }

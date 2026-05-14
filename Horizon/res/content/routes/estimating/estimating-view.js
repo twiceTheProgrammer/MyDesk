@@ -19,31 +19,55 @@ export class EstimatingView extends Element
 			</section>
 			<section #content >
 				<ToolBar />
-				<form #prep-form >
-					<label>Bags of Cement</label> <input name="bagsOfCement"/>
-					<label>Wheel barrows of Sand</label><input name="sand"/>
-				</form>
-				<div #result ></div>
-				<button #run-estimate >Calculate</button>
+				<section #prep-report >
+					<form #prep-form >
+						<label>Bags of Cement</label> <input name="bagsOfCement"/>
+					</form>
+					<div #result >
+						<h4>Produced Materials</h4>
+						<list>
+							<li>Bricks : <span #produced-bricks ></span></li>
+						</list>
+						<h4>Required Materials</h4>
+						<list>
+							<li>Bricks : <span #required-bricks ></span> </li>
+							<li>Sand : <span #required-sand ></span></li>
+							<li>labour : <span #required-labour ></span></li>
+						</list>
+						<button #run-estimate >Calculate</button>
+					</div>
+				</section>
 			</section>
 		</estimating-view>;
 	}
 
 	estimateBricksFor(bagsOfCement) {
-		let res = Window.this.xcall("EstimateBricksFor", bagsOfCement);
-		// else {
-		// 	Window.this.modal(<error> {bagsOfCement} is an invalid input.</error>);
-		// }
-		return res;
+		let bricksProduced;
+		let sandRequired;
+
+		if (bagsOfCement) {
+			bricksProduced = Window.this.xcall("EstimateBricksFor", bagsOfCement);
+			sandRequired   = Window.this.xcall("SandRequired", bagsOfCement);
+			return { bricks: bricksProduced, sand: sandRequired};
+		}
+		else {
+			Window.this.modal(<error>{bagsOfCement} is an Invalid input.</error>);
+		}
+
+		return false;
 	}
 
 	["on click at button#run-estimate"](){
 
 		let bagsOfCement = this.$("#prep-form").value.bagsOfCement;
 		let result = this.estimateBricksFor(bagsOfCement);
-		this.$("#result").append(<p>Total bricks : {result.total}</p>);
-		// Window.this.modal(<info>Estimated bricks for {bagsOfCement} bags of cement : {result.total} bricks<br />
-		// </info>);
+
+		if(result) {
+			this.$("#produced-bricks").innerText = result.bricks.total;
+			this.$("#required-bricks").innerText = 0;
+			this.$("#required-sand").innerText = result.sand.total;
+			this.$("#required-labour").innerText = 5000;
+		}
 		return true;
 	}
 }

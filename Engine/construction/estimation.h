@@ -9,14 +9,16 @@ class Estimate
 		int const WHEELBARROWS_PER_BAG = 4; // let's make our ratio 1 bag for every 4 wheel barrows of sand.
 
 	public:
-		Estimate();
+		// Estimate();
 		int BricksProduced(int cements);
 		int SandRequired(int bagsOfCement);
 		int BricksForWall(int length, int height, int width);
 		int CementRequiredForWall(int bricks);  // mortar requirement
 };
 
-
 Estimate estimate;
+
 int EstimateBricks(int cementBags) { return estimate.BricksProduced(cementBags); }
-int EstimateSand(int cement) { return estimate.SandRequired(cement); }
+int SandRequired(int cement) { return estimate.SandRequired(cement); }
+int CementRequiredForWall(int bricks) { return estimate.CementRequiredForWall(bricks); }
+int BricksForWall(int length, int height, int width) { return estimate.BricksForWall(length, height, width); }
