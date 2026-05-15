@@ -12,6 +12,7 @@ main {
 	width:*;
 	border-top:1px solid color(border-color);
 }
+.error { color:red; }
 
 // color system 
 

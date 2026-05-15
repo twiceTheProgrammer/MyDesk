@@ -1,45 +1,86 @@
 import { PropertiesView } from "../../../properties/view.js";
 import { ToolBar }        from "../../../toolbar/tool-bar.js";
+import { Form, FormError } from "../../../utils/form/form.js";
 export class EstimatingView extends Element 
 {
 
+	validate(values)
+	{
+		const errors = {};
+		if(!values.tankLength) {
+			errors.tankLength = 'Required';
+		}
+
+		if(!values.tankWidth) {
+			errors.tankWidth = 'Required';
+		}
+
+		if(!values.tankDepth) {
+			errors.tankDepth = 'Required';
+		}
+
+		if(!values.bagsOfCement) {
+			errors.bagsOfCement = 'Required';
+		}
+
+		if(!values.availableSand) {
+			errors.availableSand = 'Required';
+		}
+
+		if(!values.brickLength) {
+			errors.brickLength = 'Required';
+		}
+
+		if(!values.brickWidth) {
+			errors.brickWidth = 'Required';
+		}
+
+		if(!values.brickHeight) {
+			errors.brickHeight = 'Required';
+		}
+		return errors;
+	}
+
 	render() {
 		return <estimating-view styleset={__DIR__ + "estimating-view.css#estimating"}>
-			<section #properties >
-				<header>
-					<h3>Estimating Module</h3>
-				</header>
-				<select type="tree" treelines>
-					<option expanded>
-						<caption>Preparation</caption>
-						<option>1. Bricks molding</option>
-						<option>2. Progress report</option>
-					</option>
-				</select>
-			</section>
 			<section #content >
-				<ToolBar />
+				<toolbar>
+					<button #run-estimate tooltip="Run Estimate"/>
+				</toolbar>
 				<section #prep-report >
-					<form #prep-form >
-						<label>Bags of Cement</label> <input name="bagsOfCement"/>
-					</form>
-					<div #result >
-						<dl>
-							<header>Materials list</header>
-							<dt>Bricks</dt> <dd>x</dd>
-							<dt>Sand</dt> <dd>x</dd>
-							<dt>Damp kos</dt> <dd>x</dd>
-							<dt>ReInforcement wire</dt> <dd>x</dd>
-							<dt>Cements</dt> <dd>x</dd>
-							<dt>Labour</dt> <dd>x</dd>
-							<dt>Transport costs</dt> <dd>x</dd>
-						</dl>
-						<hr />
-						<dl>
-							<header>Produced Materials</header>
-							<dt>Bricks : </dt> <dd>x</dd>
-						</dl>
-					</div>
+					<h3>Materials Manufactoring</h3>
+					<Form #the-form value={{}}>
+						<label>Length of Septic Tank (m) : </label> 
+						 	<input|text name="tankLength"></input>
+								<FormError key="tankLength" /> 
+						<label>Width of Septic Tank (m): </label> 
+							<input name="tankWidth"></input>
+								<FormError key="tankWidth" /> 
+
+						<label>Depth of Septic Tank (m): </label> 
+							<input name="tankDepth"></input>
+								<FormError key="tankDepth" /> 
+
+						<label>Bags of Cement: </label> 
+							<input name="bagsOfCement"/>
+								<FormError key="bagsOfCement" /> 
+
+						<label>Available sand : </label> 
+							<input name="availableSand" />
+								<FormError key="availableSand" /> 
+
+						<label>Brick Length (mm):</label> 
+							<input name="brickLength" />
+								<FormError key="brickLength" /> 
+
+						<label>Brick Width (mm): </label> 
+							<input name="brickWidth" />
+								<FormError key="brickWidth" /> 
+
+						<label>Brick Height (mm): </label> 
+							<input name="brickHeight" />
+								<FormError key="brickHeight" /> 
+					</Form>
 				</section>
 			</section>
 		</estimating-view>;
@@ -61,17 +102,13 @@ export class EstimatingView extends Element
 		return false;
 	}
 
-	["on click at button#run-estimate"](){
+	["on click at button#run-estimate"](evt){
 
-		let bagsOfCement = this.$("#prep-form").value.bagsOfCement;
-		let result = this.estimateBricksFor(bagsOfCement);
+		let bagsOfCement = this.$("#the-form").value ?? {};
+		// let result = this.estimateBricksFor(bagsOfCement);
+		const errors = this.validate(bagsOfCement);
+		Form.instance.componentUpdate({errors});
 
-		if(result) {
-			this.$("#produced-bricks").innerText = result.bricks.total;
-			this.$("#required-bricks").innerText = 0;
-			this.$("#required-sand").innerText = result.sand.total;
-			this.$("#required-labour").innerText = 5000;
-		}
 		return true;
 	}
 }
