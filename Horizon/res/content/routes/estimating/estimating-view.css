@@ -91,11 +91,14 @@
 	#prep-report {
 		size:*;
 		padding:4dip 6dip;
+		flow:vertical;
+		border-spacing:4dip;
+		/* flow:grid(1 1 1 1 1 1,
+				  2 2 2 3 3 3); */
 	}
 
 	#prep-form {
-		width: min-content;
-		height: max-content;
+		size:*;
 		padding: 8dip;
 		flow: row(label, input);
 		border-spacing: 6dip;
@@ -110,6 +113,8 @@
 	#result {
 		height:max-content;
 		width:max-content;
+		flow:horizontal;
+		border-spacing:0.3em;
 	}
 
 	#result dl > header {
@@ -121,7 +126,7 @@
 
 	#result dl {
 		flow:row(dt, dd);
-		width: *;
+		width: 300dip;
 	}
 
 	#result dl > dt {

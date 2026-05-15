@@ -81,34 +81,55 @@ export class EstimatingView extends Element
 							<input name="brickHeight" />
 								<FormError key="brickHeight" /> 
 					</Form>
+					<div #result >
+							<dl>
+								<header>Materials list Required</header>
+								<dt>Bricks</dt> <dd>x</dd>
+								<dt>Sand</dt> <dd>x</dd>
+								<dt>Damp kos</dt> <dd>x</dd>
+								<dt>ReInforcement wire</dt> <dd>x</dd>
+								<dt>Cements</dt> <dd>x</dd>
+								<dt>Labour</dt> <dd>x</dd>
+								<dt>Transport costs</dt> <dd>x</dd>
+							</dl>
+							<dl>
+								<header>Produced/Available Materials</header>
+								<dt>Bricks : </dt> <dd>x</dd>
+								<dt>Sand : </dt> <dd>x</dd>
+								<dt>Damp kos : </dt> <dd>x</dd>
+								<dt>ReInforcement wire : </dt> <dd>x</dd>
+								<dt>Cements : </dt> <dd>x</dd>
+								<dt>Labour : </dt> <dd>x</dd>
+								<dt>Transport costs : </dt> <dd>x</dd>
+							</dl>
+						</div>
+					</section>
 				</section>
-			</section>
 		</estimating-view>;
 	}
 
-	estimateBricksFor(bagsOfCement) {
+	runEstimate(spec) {
 		let bricksProduced;
 		let sandRequired;
+		let estimateReport = {};
 
-		if (bagsOfCement) {
-			bricksProduced = Window.this.xcall("EstimateBricksFor", bagsOfCement);
-			sandRequired   = Window.this.xcall("SandRequired", bagsOfCement);
-			return { bricks: bricksProduced, sand: sandRequired};
-		}
-		else {
-			Window.this.modal(<error>{bagsOfCement} is an Invalid input.</error>);
-		}
+		bricksProduced = Window.this.xcall("EstimateBricksFor", spec.bagsOfCement);
+		sandRequired   = Window.this.xcall("SandRequired", spec.bagsOfCement);
 
-		return false;
+		estimateReport.bricks = bricksProduced;
+		estimateReport.sand = sandRequired;
+
+		return estimateReport;
 	}
 
 	["on click at button#run-estimate"](evt){
 
-		let bagsOfCement = this.$("#the-form").value ?? {};
-		// let result = this.estimateBricksFor(bagsOfCement);
-		const errors = this.validate(bagsOfCement);
+		let projectSpec = this.$("#the-form").value ?? {};
+		const errors = this.validate(projectSpec);
 		Form.instance.componentUpdate({errors});
 
+		let res = this.runEstimate(projectSpec);
+		// Window.this.modal(<info>{JSON.stringify(res, " ")}</info>);
 		return true;
 	}
 }
