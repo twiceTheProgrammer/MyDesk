@@ -7,4 +7,58 @@
 		vertical-align: middle;
 		text-align: center;
 	}
+		#prep-report {
+		size:*;
+		padding:4dip 6dip;
+	}
+
+	#prep-form {
+		width: min-content;
+		height: max-content;
+		padding: 8dip;
+		flow: row(label, input);
+		border-spacing: 6dip;
+	}
+
+	#prep-form > label {
+		padding: 4dip;
+		white-space: nowrap;
+		horizontal-align: right;
+	}
+
+	#result {
+		height:max-content;
+		width:max-content;
+	}
+
+	#result dl > header {
+		font-weight: bold;
+		color: #000;
+		text-align: center;
+		margin-top: 0.5em;
+		width:max-content;
+	}
+
+	#result dl {
+		flow:row(dt, dd);
+		width: *;
+	}
+
+	#result dl > dt {
+		width: max-intrinsic;
+		margin:0; 
+		padding-left: 0.6em;
+		font-weight: bold;
+		text-align: left;
+		padding:3px 4px;
+	}
+
+	#result > list {
+		display: block;
+		size:*;
+	}
+
+	#result > list > li {
+		padding: 3px 4px;
+	}
 }

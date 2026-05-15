@@ -42,7 +42,7 @@ export class ContentView extends Element
 		super();
 
 		this.routes = routes;
-		this.routeName = "estimating";
+		this.routeName = "tasks";
 		this.routeView = routes[this.routeName];
 	}
 

@@ -24,17 +24,21 @@ export class EstimatingView extends Element
 						<label>Bags of Cement</label> <input name="bagsOfCement"/>
 					</form>
 					<div #result >
-						<h4>Produced Materials</h4>
-						<list>
-							<li>Bricks : <span #produced-bricks ></span></li>
-						</list>
-						<h4>Required Materials</h4>
-						<list>
-							<li>Bricks : <span #required-bricks ></span> </li>
-							<li>Sand : <span #required-sand ></span></li>
-							<li>labour : <span #required-labour ></span></li>
-						</list>
-						<button #run-estimate >Calculate</button>
+						<dl>
+							<header>Materials list</header>
+							<dt>Bricks</dt> <dd>x</dd>
+							<dt>Sand</dt> <dd>x</dd>
+							<dt>Damp kos</dt> <dd>x</dd>
+							<dt>ReInforcement wire</dt> <dd>x</dd>
+							<dt>Cements</dt> <dd>x</dd>
+							<dt>Labour</dt> <dd>x</dd>
+							<dt>Transport costs</dt> <dd>x</dd>
+						</dl>
+						<hr />
+						<dl>
+							<header>Produced Materials</header>
+							<dt>Bricks : </dt> <dd>x</dd>
+						</dl>
 					</div>
 				</section>
 			</section>

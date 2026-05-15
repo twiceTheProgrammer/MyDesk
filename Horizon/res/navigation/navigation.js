@@ -4,11 +4,11 @@ export class NavigationView extends Element
 	render() {
 		return <section styleset={__DIR__ + "navigation.css#navigation"}>
 			<ul #navigation-bar >
-				<li #tasks      value="tasks" >My Tasks</li>
+				<li #tasks      value="tasks" checked>My Tasks</li>
 				<li #inventory  value="inventory">My Inventory</li>
 				<li #reports    value="reports">Reports</li>
 				<hr/>
-				<li #estimating         value="estimating" checked>Estimating</li>
+				<li #estimating         value="estimating">Estimating</li>
 				<li #planning           value="planning">Planning</li>
 				<li #forecasting        value="forecasting">Forecasting</li>
 				<li #cashflow           value="cashflow">Cashflow</li>
