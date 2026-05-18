@@ -30,9 +30,11 @@ int Estimate::SandRequired(int cement)
 
 int Estimate::BricksForWall(int length, int width, int height)
 {
-	double wallArea = 2 * (length * height + width * height);  // perimeter walls
-	double brickFaceArea = BRICK_LENGTH * BRICK_HEIGHT;
-	return static_cast<int>(wallArea / brickFaceArea );
+	double wallArea = length * height;
+	double brickArea = Brick.length * Brick.height;
+
+	int estimatedBricks = static_cast<int>(wallArea / brickArea);
+	return estimatedBricks;
 }
 
 int Estimate::CementRequiredForWall(int bricks) {
