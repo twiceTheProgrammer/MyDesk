@@ -508,7 +508,6 @@ namespace SciterSharp
 			}
 		}
 
-
 		public SciterValue this[int key]
 		{
 			get
@@ -532,8 +531,7 @@ namespace SciterSharp
 				SetItem(key, value);
 			}
 		}
-
-
+		
 		public void SetItem(int i, SciterValue val)
 		{
 			var vr = _api.ValueNthElementValueSet(ref _data, i, ref val._data);

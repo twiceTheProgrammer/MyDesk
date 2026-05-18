@@ -14,4 +14,3 @@ extern "C" API const HorizonAPI* IHorizonAPI() {
 
 	return &api;
 }
-

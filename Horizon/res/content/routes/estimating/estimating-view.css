@@ -97,6 +97,12 @@
 				  2 2 2 3 3 3); */
 	}
 
+	#prep-report > h3 {
+		width: max-content;
+		text-align: left;
+		color: brown;
+	}
+	
 	#prep-form {
 		size:*;
 		padding: 8dip;
@@ -119,7 +125,7 @@
 
 	#result dl > header {
 		font-weight: bold;
-		color: #000;
+		color: brown;
 		text-align: center;
 		margin-top: 0.5em;
 	}
