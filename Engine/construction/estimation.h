@@ -48,3 +48,27 @@ int BricksForWall(int length, int height, int width) { return estimate.BricksFor
 SepticTankMaterials EstimateSepticTank(int length, int width, int height) { 
 	return estimate.SepticTankEstimate(length, width, height);
 }
+
+// Estimating API
+int Estimate::BricksProduced(int cements){
+	int bricks = cements * BRICKS_PER_BAG;
+	return bricks;
+}
+
+int Estimate::SandRequired(int cement)
+{
+	return cement * WHEELBARROWS_PER_BAG;
+}
+
+int Estimate::BricksForWall(int length, int width, int height)
+{
+	double wallArea = length * height;
+	double brickArea = Brick.length * Brick.height;
+
+	int estimatedBricks = static_cast<int>(wallArea / brickArea);
+	return estimatedBricks;
+}
+
+int Estimate::CementRequiredForWall(int bricks) {
+	return (bricks + 25 - 1) / 25;   // ~25 blocks per bag of cement
+}
